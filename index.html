@@ -4,205 +4,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baylee's Ultimate Packing Architect</title>
+    <title>୨ৎ Pack-Wise ୨ৎ</title>
     <style>
+        /* Pinterest Aesthetic Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap');
+
         :root {
-            --brie-bg: #f7f9fb;
-            --brie-dark: #2c3e50;
-            --brie-accent: #78909c;
-            --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --soft-pink: #fceef5;
+            --rose: #ffc4d6;
+            --sage: #d8e2dc;
+            --cream: #fffaf0;
+            --text: #6b705c;
+            --accent: #b7b7a4;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--brie-bg);
-            color: var(--brie-dark);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            background-image: radial-gradient(#fceef5 1px, transparent 1px);
+            background-size: 20px 20px; /* Subtle dot pattern like a journal */
+            color: var(--text);
             margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: var(--card-shadow);
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(183, 183, 164, 0.2);
+            border: 1px solid var(--soft-pink);
         }
 
-        h1 { font-weight: 300; text-align: center; color: #455a64; margin-bottom: 10px; }
-        .subtitle { text-align: center; color: var(--brie-accent); margin-bottom: 30px; }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-        .input-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--text);
+            margin: 0;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .bow {
+            color: var(--rose);
+            font-size: 1.5rem;
+            margin: 10px 0;
+            display: block;
+        }
+
+        label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .input-box {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--sage);
+            background: transparent;
+            padding: 10px 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
             margin-bottom: 30px;
+            transition: 0.3s;
+            color: var(--text);
         }
 
-        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            box-sizing: border-box;
+        .input-box:focus {
+            outline: none;
+            border-bottom: 1px solid var(--rose);
         }
 
-        .activity-picker {
+        .tag-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 30px;
         }
 
         .tag {
             padding: 8px 16px;
-            background: #f0f0f0;
+            border: 1px solid var(--sage);
             border-radius: 20px;
+            font-size: 0.8rem;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            border: 1px solid transparent;
+            transition: 0.3s;
+            background: white;
         }
 
         .tag.active {
-            background: #455a64;
-            color: white;
+            background-color: var(--soft-pink);
+            border-color: var(--rose);
+            color: var(--text);
         }
 
-        .generate-btn {
+        .main-btn {
             width: 100%;
-            padding: 20px;
-            background: #455a64;
+            background-color: var(--sage);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
             cursor: pointer;
+            transition: 0.4s;
             margin-top: 20px;
         }
 
-        .inventory {
-            margin-top: 40px;
+        .main-btn:hover {
+            background-color: var(--accent);
+            letter-spacing: 5px;
+        }
+
+        .results {
+            margin-top: 50px;
             display: none;
+            animation: fadeIn 1s ease;
         }
 
-        .category-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .category-card {
+        .moodboard-card {
             background: #fff;
-            border: 1px solid #f0f0f0;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-
-        .category-card h3 {
-            margin-top: 0;
-            font-size: 1rem;
-            border-bottom: 2px solid #f7f9fb;
-            padding-bottom: 10px;
-            color: #546e7a;
-        }
-
-        ul { padding-left: 18px; margin-bottom: 0; }
-        li { margin-bottom: 6px; font-size: 0.95rem; }
-
-        .travel-outfit {
-            background: #e1f5fe;
-            padding: 15px;
+            padding: 30px;
             border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 5px solid #03a9f4;
+            margin-bottom: 25px;
+            border: 1px solid var(--soft-pink);
         }
 
-        @media (max-width: 600px) {
-            .input-grid, .category-grid { grid-template-columns: 1fr; }
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
+        .outfit-item {
+            margin-bottom: 20px;
+            border-left: 2px solid var(--soft-pink);
+            padding-left: 15px;
+        }
+
+        .vibe-tag {
+            font-size: 0.7rem;
+            color: var(--rose);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        textarea {
+            min-height: 80px;
+            border: 1px solid var(--soft-pink) !important;
+            border-radius: 10px !important;
+            padding: 10px !important;
+        }
+
+        ul { list-style: none; padding: 0; }
+        li { 
+            margin-bottom: 12px; 
+            font-size: 0.9rem; 
+            display: flex; 
+            align-items: center;
+        }
+        li::before {
+            content: '✧';
+            margin-right: 10px;
+            color: var(--rose);
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: var(--rose);
+        }
+
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>The Ultimate Inventory</h1>
-    <p class="subtitle">Baylee, let's account for every single item.</p>
+    <header>
+        <span class="bow">୨ৎ</span>
+        <h1>Pack-Wise</h1>
+        <p style="font-size: 0.8rem; letter-spacing: 1px; color: var(--accent);">CURATING YOUR TRAVEL STORY</p>
+    </header>
 
-    <div class="input-grid">
+    <label>Destination</label>
+    <input type="text" id="dest" class="input-box" placeholder="Where are we drifting to?">
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
         <div>
-            <label>Trip Name</label>
-            <input type="text" id="tripName" placeholder="e.g. Disney World Vacation">
-        </div>
-        <div>
-            <label>Trip Type</label>
-            <select id="tripType">
-                <option value="standard">Standard Vacation</option>
-                <option value="summer-camp">Summer Camp (Rugged)</option>
-                <option value="reunion">Family Reunion (Georgia Summer)</option>
-                <option value="formal">Special Event / Wedding</option>
+            <label>The Season</label>
+            <select id="season" class="input-box">
+                <option value="warm">Golden Summer</option>
+                <option value="fresh">Petal Spring</option>
+                <option value="crisp">Amber Fall</option>
+                <option value="chill">Velvet Winter</option>
             </select>
         </div>
         <div>
-            <label>Departure Date</label>
-            <input type="date" id="startDate">
-        </div>
-        <div>
-            <label>Return Date</label>
-            <input type="date" id="endDate">
+            <label>Trip Vibe</label>
+            <select id="tripType" class="input-box">
+                <option value="camp">Summer Camp 🏕️</option>
+                <option value="reunion">Family Heritage 🏠</option>
+                <option value="city">City Aesthetic 🏙️</option>
+                <option value="beach">Ocean Air 🌴</option>
+                <option value="concert">Loud Music 🎤</option>
+            </select>
         </div>
     </div>
 
-    <label>Special Activities</label>
-    <div class="activity-picker">
-        <div class="tag" onclick="toggleTag(this, 'beach')">Beach/Pool</div>
-        <div class="tag" onclick="toggleTag(this, 'hiking')">Hiking</div>
-        <div class="tag" onclick="toggleTag(this, 'gym')">Gym/Workout</div>
-        <div class="tag" onclick="toggleTag(this, 'fancy')">Formal Dinner</div>
-        <div class="tag" onclick="toggleTag(this, 'theme-park')">Theme Park</div>
+    <label>The Schedule</label>
+    <div class="tag-group">
+        <div class="tag" onclick="toggleTag(this, 'dinner')">Elegant Dinner</div>
+        <div class="tag" onclick="toggleTag(this, 'swim')">Lakeside/Pool</div>
+        <div class="tag" onclick="toggleTag(this, 'hiking')">Early Morning Hike</div>
+        <div class="tag" onclick="toggleTag(this, 'photos')">Moodboard Photos</div>
+        <div class="tag" onclick="toggleTag(this, 'church')">Morning Service</div>
     </div>
 
-    <button class="generate-btn" onclick="buildInventory()">Calculate My Exact Inventory</button>
+    <label>Official Checklist Importer</label>
+    <textarea id="manualList" class="input-box" placeholder="Paste your camp list here..."></textarea>
 
-    <div id="inventory" class="inventory">
-        <div class="travel-outfit" id="travelOutfit">
-            <!-- Travel outfit logic -->
+    <button class="main-btn" onclick="generatePinterest()">Plan My Aesthetic</button>
+
+    <div id="results" class="results">
+        
+        <div class="moodboard-card" style="background-color: var(--soft-pink); border:none;">
+            <div class="card-title">The Forecast</div>
+            <p id="weatherText" style="font-size: 0.9rem;"></p>
         </div>
 
-        <div class="category-grid">
-            <div class="category-card">
-                <h3>Main Clothing</h3>
-                <ul id="mainClothing"></ul>
-            </div>
-            <div class="category-card">
-                <h3>Undergarments & Socks</h3>
-                <ul id="undergarments"></ul>
-            </div>
-            <div class="category-card">
-                <h3>Footwear</h3>
-                <ul id="footwear"></ul>
-            </div>
-            <div class="category-card">
-                <h3>Toiletries (3-1-1 Rule)</h3>
-                <ul id="toiletries"></ul>
-            </div>
-            <div class="category-card">
-                <h3>Electronics & Tech</h3>
-                <ul id="electronics"></ul>
-            </div>
-            <div class="category-card">
-                <h3>Accessories & Misc</h3>
-                <ul id="accessories"></ul>
-            </div>
+        <div class="moodboard-card">
+            <div class="card-title">The Lookbook</div>
+            <div id="lookbook"></div>
         </div>
+
+        <div class="moodboard-card">
+            <div class="card-title">Essential Inventory</div>
+            <ul id="inventory"></ul>
+        </div>
+
+        <div id="checklistCard" class="moodboard-card">
+            <div class="card-title">The Official List</div>
+            <ul id="manualItems"></ul>
+        </div>
+
     </div>
 </div>
 
@@ -210,97 +275,73 @@
     let activeTags = [];
     function toggleTag(el, tag) {
         el.classList.toggle('active');
-        if (activeTags.includes(tag)) {
-            activeTags = activeTags.filter(t => t !== tag);
-        } else {
-            activeTags.push(tag);
-        }
+        if(activeTags.includes(tag)) activeTags = activeTags.filter(t => t !== tag);
+        else activeTags.push(tag);
     }
 
-    function buildInventory() {
-        const start = new Date(document.getElementById('startDate').value);
-        const end = new Date(document.getElementById('endDate').value);
+    function generatePinterest() {
+        const dest = document.getElementById('dest').value || "Somewhere Lovely";
+        const season = document.getElementById('season').value;
         const tripType = document.getElementById('tripType').value;
-        
-        if (isNaN(start) || isNaN(end)) {
-            alert("Baylee, please enter your dates so I can calculate your counts.");
-            return;
+        const manual = document.getElementById('manualList').value;
+
+        // Weather
+        const weather = document.getElementById('weatherText');
+        if(season === 'warm') weather.innerText = `Golden hours in ${dest} will be warm. Think breathable fabrics and plenty of hydration.`;
+        else if(season === 'fresh') weather.innerText = `Soft breezes in ${dest}. A light knit or trench coat is essential for the aesthetic.`;
+        else if(season === 'crisp') weather.innerText = `Cooler days ahead. Bring your favorite oversized scarf and cozy boots.`;
+        else weather.innerText = `Crisp air in ${dest}. Velvet textures and thermal layers will keep you cozy.`;
+
+        // Lookbook
+        const lookbook = document.getElementById('lookbook');
+        lookbook.innerHTML = "";
+        let looks = [];
+
+        if(tripType === 'camp') {
+            looks.push({vibe: "Cozy Camp", desc: "Oversized hoodie + ribbed bike shorts + white crew socks."});
+            looks.push({vibe: "Active Girl", desc: "Matching yoga set + sleek ponytail + hydroflask."});
+        } else if(tripType === 'city') {
+            looks.push({vibe: "Clean Girl", desc: "Wide leg trousers + baby tee + gold hoops."});
+        } else if(tripType === 'beach') {
+            looks.push({vibe: "Ocean Breeze", desc: "Linen set + straw bag + shell accessories."});
         }
 
-        const days = Math.ceil(Math.abs(end - start) / (1000 * 60 * 60 * 24)) + 1;
+        if(activeTags.includes('dinner')) looks.push({vibe: "Evening Elegance", desc: "Satin slip dress + kitten heels + ribbon in hair."});
+        if(activeTags.includes('photos')) looks.push({vibe: "Picture Perfect", desc: "Sundress with puff sleeves + vintage camera."});
 
-        // 1. Travel Outfit Section
-        const travelOutfit = document.getElementById('travelOutfit');
-        travelOutfit.innerHTML = `<strong>Your "Travel Day" Outfit:</strong> Wear your heaviest sneakers, your jeans/bulkiest pants, a t-shirt, and your jacket. <em>(Note: These items are NOT in your suitcase counts below).</em>`;
+        looks.forEach(l => {
+            lookbook.innerHTML += `<div class="outfit-item"><span class="vibe-tag">${l.vibe}</span><br>${l.desc}</div>`;
+        });
 
-        // 2. Main Clothing (Caps at 7 to prevent overpacking)
-        const mainClothing = document.getElementById('mainClothing');
-        const topsCount = Math.min(days - 1, 7);
-        const bottomsCount = Math.ceil(days / 3);
-        mainClothing.innerHTML = `
-            <li>${topsCount} Daily Tops</li>
-            <li>${bottomsCount} Bottoms (Pants/Shorts)</li>
-            ${activeTags.includes('fancy') ? '<li>1 Formal Outfit (Dress/Suit)</li>' : ''}
-            ${activeTags.includes('beach') ? '<li>2 Swimsuits (one to wear, one drying)</li>' : ''}
-            <li>1 Lightweight Pajama Set</li>
+        // Inventory
+        const inventory = document.getElementById('inventory');
+        inventory.innerHTML = `
+            <li>5 Tops (Mix of basics & statement pieces)</li>
+            <li>3 Bottoms (Denim, Trouser, Short)</li>
+            <li>Days + 2 "Safety" Undergarments</li>
+            <li>1 Pair Sneakers, 1 Pair Sandals/Heels</li>
+            <li>Signature Scent & SPF 50</li>
         `;
 
-        // 3. Undergarments
-        const undergarments = document.getElementById('undergarments');
-        undergarments.innerHTML = `
-            <li>${days + 1} Pairs of Underwear</li>
-            <li>${days + 1} Pairs of Socks</li>
-            <li>${Math.ceil(days/3)} Bras / Undershirts</li>
-            ${activeTags.includes('gym') ? '<li>2 Sports Bras / Athletic Socks</li>' : ''}
-        `;
+        // Manual List
+        const manualItems = document.getElementById('manualItems');
+        const checklistCard = document.getElementById('checklistCard');
+        manualItems.innerHTML = "";
+        if(manual) {
+            checklistCard.style.display = "block";
+            manual.split('\n').forEach(line => {
+                if(line.trim()) manualItems.innerHTML += `<li><input type="checkbox"> ${line}</li>`;
+            });
+        } else {
+            checklistCard.style.display = "none";
+        }
 
-        // 4. Footwear
-        const footwear = document.getElementById('footwear');
-        let shoes = ["1 Pair of Sandals or Loafers"];
-        if (activeTags.includes('hiking')) shoes.push("1 Pair of Hiking Boots");
-        if (activeTags.includes('fancy')) shoes.push("1 Pair of Dress Shoes");
-        if (activeTags.includes('gym')) shoes.push("1 Pair of Trainers");
-        footwear.innerHTML = shoes.map(s => `<li>${s}</li>`).join('') + `<li>(Wearing sneakers on travel day)</li>`;
-
-        // 5. Toiletries
-        const toiletries = document.getElementById('toiletries');
-        toiletries.innerHTML = `
-            <li>Toothbrush & Travel-size Paste</li>
-            <li>Deodorant</li>
-            <li>Travel-size Shampoo/Conditioner</li>
-            <li>Face Wash & Moisturizer</li>
-            <li>Hairbrush & 3 hair ties</li>
-            <li>Personal Hygiene Products</li>
-            <li>Sunscreen (Essential for Georgia/Disney)</li>
-            <li>Small First-Aid (Band-aids/Tylenol)</li>
-        `;
-
-        // 6. Electronics
-        const electronics = document.getElementById('electronics');
-        electronics.innerHTML = `
-            <li>Phone Charger Cable</li>
-            <li>Wall Plug Adapter</li>
-            <li>Portable Power Bank (For long days)</li>
-            <li>Headphones/Earbuds</li>
-            ${days > 5 ? '<li>Extra Long Charging Cable</li>' : ''}
-            ${activeTags.includes('theme-park') ? '<li>Small Electric Fan / Cooling neck ring</li>' : ''}
-        `;
-
-        // 7. Accessories
-        const accessories = document.getElementById('accessories');
-        accessories.innerHTML = `
-            <li>Sunglasses</li>
-            <li>1 Versatile Belt</li>
-            <li>1 Small Handbag or Backpack</li>
-            <li>Wallet / ID / Insurance Cards</li>
-            ${activeTags.includes('beach') ? '<li>Microfiber Travel Towel</li>' : ''}
-        `;
-
-        document.getElementById('inventory').style.display = "block";
-        window.scrollTo(0, document.body.scrollHeight);
+        document.getElementById('results').style.display = "block";
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 </script>
 
 </body>
-</html>
-```
+
+
+Get Outlook for iOS

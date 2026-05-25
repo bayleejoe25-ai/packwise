@@ -1,347 +1,616 @@
-```html
+html = dedent("""
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>୨ৎ Pack-Wise ୨ৎ</title>
-    <style>
-        /* Pinterest Aesthetic Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack-Wise ✈️</title>
 
-        :root {
-            --soft-pink: #fceef5;
-            --rose: #ffc4d6;
-            --sage: #d8e2dc;
-            --cream: #fffaf0;
-            --text: #6b705c;
-            --accent: #b7b7a4;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--cream);
-            background-image: radial-gradient(#fceef5 1px, transparent 1px);
-            background-size: 20px 20px; /* Subtle dot pattern like a journal */
-            color: var(--text);
-            margin: 0;
-            padding: 40px 20px;
-            line-height: 1.6;
-        }
+<style>
+:root{
+    --pink:#ffd6e7;
+    --lightpink:#ffeef5;
+    --rose:#ff8fab;
+    --cream:#fffaf5;
+    --sage:#d8e2dc;
+    --text:#5c5470;
+    --white:#ffffff;
+}
 
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(183, 183, 164, 0.2);
-            border: 1px solid var(--soft-pink);
-        }
+*{
+    box-sizing:border-box;
+}
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+body{
+    margin:0;
+    padding:30px 15px;
+    font-family:'Montserrat',sans-serif;
+    background:
+        radial-gradient(circle at top left,#ffe5ec 0%,transparent 20%),
+        radial-gradient(circle at bottom right,#ffd6e7 0%,transparent 20%),
+        var(--cream);
+    color:var(--text);
+}
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: var(--text);
-            margin: 0;
-            font-style: italic;
-            font-weight: 400;
-        }
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:rgba(255,255,255,0.95);
+    border-radius:30px;
+    padding:40px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.08);
+    border:3px solid #fff;
+}
 
-        .bow {
-            color: var(--rose);
-            font-size: 1.5rem;
-            margin: 10px 0;
-            display: block;
-        }
+header{
+    text-align:center;
+    margin-bottom:40px;
+}
 
-        label {
-            display: block;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--accent);
-        }
+header h1{
+    font-family:'Playfair Display',serif;
+    font-size:4rem;
+    margin:0;
+    color:#6d6875;
+}
 
-        .input-box {
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid var(--sage);
-            background: transparent;
-            padding: 10px 0;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            transition: 0.3s;
-            color: var(--text);
-        }
+.subtitle{
+    color:#a28497;
+    letter-spacing:2px;
+    font-size:0.85rem;
+}
 
-        .input-box:focus {
-            outline: none;
-            border-bottom: 1px solid var(--rose);
-        }
+.section{
+    margin-bottom:35px;
+}
 
-        .tag-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 30px;
-        }
+.section-title{
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem;
+    margin-bottom:15px;
+    color:#6d6875;
+}
 
-        .tag {
-            padding: 8px 16px;
-            border: 1px solid var(--sage);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-            background: white;
-        }
+.input-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
 
-        .tag.active {
-            background-color: var(--soft-pink);
-            border-color: var(--rose);
-            color: var(--text);
-        }
+label{
+    display:block;
+    margin-bottom:8px;
+    font-size:0.8rem;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    font-weight:600;
+}
 
-        .main-btn {
-            width: 100%;
-            background-color: var(--sage);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.4s;
-            margin-top: 20px;
-        }
+input,select{
+    width:100%;
+    padding:14px;
+    border-radius:15px;
+    border:2px solid #f4d8e3;
+    background:#fff;
+    font-size:1rem;
+    font-family:'Montserrat',sans-serif;
+}
 
-        .main-btn:hover {
-            background-color: var(--accent);
-            letter-spacing: 5px;
-        }
+input:focus,select:focus{
+    outline:none;
+    border-color:var(--rose);
+}
 
-        .results {
-            margin-top: 50px;
-            display: none;
-            animation: fadeIn 1s ease;
-        }
+.tag-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.tag{
+    background:var(--lightpink);
+    border:2px solid transparent;
+    padding:10px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:0.2s;
+    transform:rotate(-1deg);
+}
 
-        .moodboard-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border: 1px solid var(--soft-pink);
-        }
+.tag:hover{
+    transform:scale(1.03);
+}
 
-        .card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-style: italic;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.tag.active{
+    background:var(--rose);
+    color:white;
+}
 
-        .outfit-item {
-            margin-bottom: 20px;
-            border-left: 2px solid var(--soft-pink);
-            padding-left: 15px;
-        }
+button{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(135deg,#ff8fab,#ffb3c6);
+    color:white;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:20px;
+    box-shadow:0 8px 20px rgba(255,143,171,0.3);
+}
 
-        .vibe-tag {
-            font-size: 0.7rem;
-            color: var(--rose);
-            font-weight: 800;
-            text-transform: uppercase;
-        }
+button:hover{
+    transform:translateY(-2px);
+}
 
-        textarea {
-            min-height: 80px;
-            border: 1px solid var(--soft-pink) !important;
-            border-radius: 10px !important;
-            padding: 10px !important;
-        }
+.results{
+    display:none;
+    margin-top:50px;
+}
 
-        ul { list-style: none; padding: 0; }
-        li { 
-            margin-bottom: 12px; 
-            font-size: 0.9rem; 
-            display: flex; 
-            align-items: center;
-        }
-        li::before {
-            content: '✧';
-            margin-right: 10px;
-            color: var(--rose);
-        }
+.trip-banner{
+    background:
+      repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 12px,
+        #ffe5ec 12px,
+        #ffe5ec 24px
+      );
+    padding:25px;
+    border-radius:25px;
+    text-align:center;
+    margin-bottom:25px;
+}
 
-        input[type="checkbox"] {
-            margin-right: 10px;
-            accent-color: var(--rose);
-        }
+.trip-banner h2{
+    margin:0;
+    font-family:'Playfair Display',serif;
+}
 
-    </style>
+.card-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 5px 18px rgba(0,0,0,0.05);
+    border:2px solid #fff0f5;
+}
+
+.card h3{
+    margin-top:0;
+    font-family:'Playfair Display',serif;
+}
+
+.keyword-chip{
+    display:inline-block;
+    background:#ffe5ec;
+    padding:10px 15px;
+    border-radius:999px;
+    margin:6px;
+    transform:rotate(-1deg);
+    box-shadow:2px 3px 0px #ffd6e7;
+    font-size:0.9rem;
+}
+
+ul{
+    padding-left:0;
+    list-style:none;
+}
+
+li{
+    margin-bottom:10px;
+}
+
+.checkbox{
+    margin-right:8px;
+}
+
+.weather-box{
+    background:#fff0f5;
+    border-left:6px solid var(--rose);
+}
+
+.footer-note{
+    text-align:center;
+    margin-top:35px;
+    color:#a28497;
+    font-size:0.85rem;
+}
+
+@media(max-width:768px){
+    .input-grid,
+    .card-grid{
+        grid-template-columns:1fr;
+    }
+
+    header h1{
+        font-size:2.8rem;
+    }
+
+    .container{
+        padding:25px;
+    }
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <header>
-        <span class="bow">୨ৎ</span>
-        <h1>Pack-Wise</h1>
-        <p style="font-size: 0.8rem; letter-spacing: 1px; color: var(--accent);">CURATING YOUR TRAVEL STORY</p>
-    </header>
 
-    <label>Destination</label>
-    <input type="text" id="dest" class="input-box" placeholder="Where are we drifting to?">
+<header>
+    <div style="font-size:2rem;">୨ৎ ✈️ ୨ৎ</div>
+    <h1>Pack-Wise</h1>
+    <p class="subtitle">YOUR AESTHETIC TRAVEL PLANNER</p>
+</header>
 
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div class="section">
+    <div class="section-title">Trip Details</div>
+
+    <div class="input-grid">
+
         <div>
-            <label>The Season</label>
-            <select id="season" class="input-box">
-                <option value="warm">Golden Summer</option>
-                <option value="fresh">Petal Spring</option>
-                <option value="crisp">Amber Fall</option>
-                <option value="chill">Velvet Winter</option>
-            </select>
+            <label>Trip Name</label>
+            <input type="text" id="tripName" placeholder="Girls Trip to Florida ☀️">
         </div>
+
         <div>
-            <label>Trip Vibe</label>
-            <select id="tripType" class="input-box">
+            <label>Trip Type</label>
+            <select id="tripType">
+                <option value="beach">Beach Vacation 🌴</option>
                 <option value="camp">Summer Camp 🏕️</option>
-                <option value="reunion">Family Heritage 🏠</option>
-                <option value="city">City Aesthetic 🏙️</option>
-                <option value="beach">Ocean Air 🌴</option>
-                <option value="concert">Loud Music 🎤</option>
+                <option value="city">City Trip 🏙️</option>
+                <option value="church">Church Retreat ⛪</option>
+                <option value="themepark">Theme Park 🎢</option>
+                <option value="roadtrip">Road Trip 🚗</option>
+                <option value="family">Family Visit 🏠</option>
             </select>
         </div>
-    </div>
 
-    <label>The Schedule</label>
-    <div class="tag-group">
-        <div class="tag" onclick="toggleTag(this, 'dinner')">Elegant Dinner</div>
-        <div class="tag" onclick="toggleTag(this, 'swim')">Lakeside/Pool</div>
-        <div class="tag" onclick="toggleTag(this, 'hiking')">Early Morning Hike</div>
-        <div class="tag" onclick="toggleTag(this, 'photos')">Moodboard Photos</div>
-        <div class="tag" onclick="toggleTag(this, 'church')">Morning Service</div>
-    </div>
-
-    <label>Official Checklist Importer</label>
-    <textarea id="manualList" class="input-box" placeholder="Paste your camp list here..."></textarea>
-
-    <button class="main-btn" onclick="generatePinterest()">Plan My Aesthetic</button>
-
-    <div id="results" class="results">
-        
-        <div class="moodboard-card" style="background-color: var(--soft-pink); border:none;">
-            <div class="card-title">The Forecast</div>
-            <p id="weatherText" style="font-size: 0.9rem;"></p>
+        <div>
+            <label>Leaving From</label>
+            <input type="text" id="fromLocation" placeholder="Texas">
         </div>
 
-        <div class="moodboard-card">
-            <div class="card-title">The Lookbook</div>
-            <div id="lookbook"></div>
+        <div>
+            <label>Going To</label>
+            <input type="text" id="toLocation" placeholder="Florida">
         </div>
 
-        <div class="moodboard-card">
-            <div class="card-title">Essential Inventory</div>
-            <ul id="inventory"></ul>
+        <div>
+            <label>Departure Date</label>
+            <input type="date" id="startDate">
         </div>
 
-        <div id="checklistCard" class="moodboard-card">
-            <div class="card-title">The Official List</div>
-            <ul id="manualItems"></ul>
+        <div>
+            <label>Return Date</label>
+            <input type="date" id="endDate">
+        </div>
+
+        <div>
+            <label>Travel Method</label>
+            <select id="travelMethod">
+                <option value="flying">Flying ✈️</option>
+                <option value="driving">Driving 🚗</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Your Style</label>
+            <select id="style">
+                <option value="coquette">Coquette 🎀</option>
+                <option value="clean">Clean Girl ✨</option>
+                <option value="sporty">Sporty 🧢</option>
+                <option value="streetwear">Streetwear 👟</option>
+                <option value="boho">Boho 🌼</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Laundry Access?</label>
+            <select id="laundry">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
         </div>
 
     </div>
 </div>
 
+<div class="section">
+    <div class="section-title">Activities</div>
+
+    <div class="tag-group">
+        <div class="tag" onclick="toggleTag(this,'beach')">Beach Day 🌊</div>
+        <div class="tag" onclick="toggleTag(this,'shopping')">Shopping 🛍️</div>
+        <div class="tag" onclick="toggleTag(this,'photos')">Photoshoot 📸</div>
+        <div class="tag" onclick="toggleTag(this,'concert')">Concert 🎤</div>
+        <div class="tag" onclick="toggleTag(this,'church')">Church ⛪</div>
+        <div class="tag" onclick="toggleTag(this,'hiking')">Hiking 🥾</div>
+        <div class="tag" onclick="toggleTag(this,'fancy')">Fancy Dinner 🍷</div>
+        <div class="tag" onclick="toggleTag(this,'pool')">Pool Day ☀️</div>
+        <div class="tag" onclick="toggleTag(this,'themepark')">Theme Park 🎢</div>
+        <div class="tag" onclick="toggleTag(this,'roadtrip')">Roadtrip Snacks 🍿</div>
+    </div>
+
+    <button onclick="generatePlan()">Generate My Pack-Wise Board ✨</button>
+</div>
+
+<div class="results" id="results">
+
+    <div class="trip-banner">
+        <h2 id="bannerTitle"></h2>
+        <p id="countdown"></p>
+    </div>
+
+    <div class="card weather-box">
+        <h3>☀️ Forecast</h3>
+        <p id="forecast"></p>
+    </div>
+
+    <br>
+
+    <div class="card">
+        <h3>🎀 Style Search</h3>
+        <div id="keywords"></div>
+    </div>
+
+    <br>
+
+    <div class="card-grid">
+
+        <div class="card">
+            <h3>👚 Clothing</h3>
+            <ul id="clothing"></ul>
+        </div>
+
+        <div class="card">
+            <h3>🧴 Toiletries</h3>
+            <ul id="toiletries"></ul>
+        </div>
+
+        <div class="card">
+            <h3>👟 Shoes & Accessories</h3>
+            <ul id="shoes"></ul>
+        </div>
+
+        <div class="card">
+            <h3>📱 Tech Essentials</h3>
+            <ul id="tech"></ul>
+        </div>
+
+        <div class="card">
+            <h3>✈️ Travel Essentials</h3>
+            <ul id="travel"></ul>
+        </div>
+
+        <div class="card">
+            <h3>🫶 Final Touches</h3>
+            <ul id="extras"></ul>
+        </div>
+
+    </div>
+
+    <div class="footer-note">
+        packed with love ♡
+    </div>
+
+</div>
+
+</div>
+
 <script>
-    let activeTags = [];
-    function toggleTag(el, tag) {
-        el.classList.toggle('active');
-        if(activeTags.includes(tag)) activeTags = activeTags.filter(t => t !== tag);
-        else activeTags.push(tag);
+
+let activeTags = [];
+
+function toggleTag(el,tag){
+    el.classList.toggle("active");
+
+    if(activeTags.includes(tag)){
+        activeTags = activeTags.filter(t => t !== tag);
+    } else {
+        activeTags.push(tag);
+    }
+}
+
+function addList(id,items){
+    document.getElementById(id).innerHTML =
+    items.map(item => `<li><input type="checkbox" class="checkbox">${item}</li>`).join("");
+}
+
+function generatePlan(){
+
+    const tripName = document.getElementById("tripName").value || "Your Trip";
+    const tripType = document.getElementById("tripType").value;
+    const style = document.getElementById("style").value;
+    const travelMethod = document.getElementById("travelMethod").value;
+    const laundry = document.getElementById("laundry").value;
+
+    const start = new Date(document.getElementById("startDate").value);
+    const end = new Date(document.getElementById("endDate").value);
+
+    if(isNaN(start) || isNaN(end)){
+        alert("Please enter your travel dates ✨");
+        return;
     }
 
-    function generatePinterest() {
-        const dest = document.getElementById('dest').value || "Somewhere Lovely";
-        const season = document.getElementById('season').value;
-        const tripType = document.getElementById('tripType').value;
-        const manual = document.getElementById('manualList').value;
+    const days = Math.ceil((end - start)/(1000*60*60*24)) + 1;
 
-        // Weather
-        const weather = document.getElementById('weatherText');
-        if(season === 'warm') weather.innerText = `Golden hours in ${dest} will be warm. Think breathable fabrics and plenty of hydration.`;
-        else if(season === 'fresh') weather.innerText = `Soft breezes in ${dest}. A light knit or trench coat is essential for the aesthetic.`;
-        else if(season === 'crisp') weather.innerText = `Cooler days ahead. Bring your favorite oversized scarf and cozy boots.`;
-        else weather.innerText = `Crisp air in ${dest}. Velvet textures and thermal layers will keep you cozy.`;
+    let tops = laundry === "yes"
+        ? Math.ceil(days * 0.6)
+        : Math.min(days,8);
 
-        // Lookbook
-        const lookbook = document.getElementById('lookbook');
-        lookbook.innerHTML = "";
-        let looks = [];
+    let keywords = [];
+    let travelItems = [];
+    let clothing = [];
+    let toiletries = [];
+    let shoes = [];
+    let tech = [];
+    let extras = [];
 
-        if(tripType === 'camp') {
-            looks.push({vibe: "Cozy Camp", desc: "Oversized hoodie + ribbed bike shorts + white crew socks."});
-            looks.push({vibe: "Active Girl", desc: "Matching yoga set + sleek ponytail + hydroflask."});
-        } else if(tripType === 'city') {
-            looks.push({vibe: "Clean Girl", desc: "Wide leg trousers + baby tee + gold hoops."});
-        } else if(tripType === 'beach') {
-            looks.push({vibe: "Ocean Breeze", desc: "Linen set + straw bag + shell accessories."});
-        }
+    document.getElementById("bannerTitle").innerText = tripName;
 
-        if(activeTags.includes('dinner')) looks.push({vibe: "Evening Elegance", desc: "Satin slip dress + kitten heels + ribbon in hair."});
-        if(activeTags.includes('photos')) looks.push({vibe: "Picture Perfect", desc: "Sundress with puff sleeves + vintage camera."});
+    const today = new Date();
+    const countdown = Math.ceil((start - today)/(1000*60*60*24));
 
-        looks.forEach(l => {
-            lookbook.innerHTML += `<div class="outfit-item"><span class="vibe-tag">${l.vibe}</span><br>${l.desc}</div>`;
-        });
+    document.getElementById("countdown").innerText =
+        countdown > 0
+        ? `${countdown} days until takeoff ✈️`
+        : "Your trip is here!";
 
-        // Inventory
-        const inventory = document.getElementById('inventory');
-        inventory.innerHTML = `
-            <li>5 Tops (Mix of basics & statement pieces)</li>
-            <li>3 Bottoms (Denim, Trouser, Short)</li>
-            <li>Days + 2 "Safety" Undergarments</li>
-            <li>1 Pair Sneakers, 1 Pair Sandals/Heels</li>
-            <li>Signature Scent & SPF 50</li>
-        `;
+    document.getElementById("forecast").innerText =
+    "Expected temperatures: 80°F - 92°F. Pack breathable fabrics, sunscreen, comfy walking shoes, and hydration essentials.";
 
-        // Manual List
-        const manualItems = document.getElementById('manualItems');
-        const checklistCard = document.getElementById('checklistCard');
-        manualItems.innerHTML = "";
-        if(manual) {
-            checklistCard.style.display = "block";
-            manual.split('\n').forEach(line => {
-                if(line.trim()) manualItems.innerHTML += `<li><input type="checkbox"> ${line}</li>`;
-            });
-        } else {
-            checklistCard.style.display = "none";
-        }
+    clothing = [
+        `${tops} Daily Tops`,
+        `${Math.ceil(days/3)} Bottoms`,
+        `${days + 1} Underwear`,
+        `${days + 1} Socks`,
+        `1 Pajama Set`
+    ];
 
-        document.getElementById('results').style.display = "block";
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    if(activeTags.includes("beach") || activeTags.includes("pool")){
+        clothing.push("2 Swimsuits");
     }
+
+    if(activeTags.includes("fancy")){
+        clothing.push("1 Fancy Dinner Outfit");
+    }
+
+    toiletries = [
+        "Toothbrush & Toothpaste",
+        "Deodorant",
+        "Skincare",
+        "Hairbrush & Hair Ties",
+        "Sunscreen",
+        "Lip Balm",
+        "Shampoo & Conditioner"
+    ];
+
+    shoes = [
+        "Sneakers",
+        "Sandals",
+        "Small Bag or Backpack"
+    ];
+
+    if(activeTags.includes("fancy")){
+        shoes.push("Dress Shoes or Heels");
+    }
+
+    tech = [
+        "Phone Charger",
+        "Portable Charger",
+        "Headphones",
+        "AirPods"
+    ];
+
+    if(travelMethod === "flying"){
+        travelItems = [
+            "Boarding Pass",
+            "Carry-On Bag",
+            "Travel-size Liquids",
+            "ID / Passport",
+            "Neck Pillow",
+            "Luggage Tags"
+        ];
+    } else {
+        travelItems = [
+            "Snacks",
+            "Water Bottle",
+            "Car Charger",
+            "Blanket",
+            "Playlist Downloaded",
+            "Roadtrip Pillow"
+        ];
+    }
+
+    extras = [
+        "Sunglasses",
+        "Mini Perfume",
+        "Water Bottle",
+        "Emergency Hoodie",
+        "Cute Photo Outfit"
+    ];
+
+    if(style === "coquette"){
+        keywords.push(
+            "coquette vacation outfits",
+            "pink summer outfits",
+            "girly airport outfits"
+        );
+    }
+
+    if(style === "sporty"){
+        keywords.push(
+            "sporty summer outfits",
+            "nike pros outfits",
+            "athletic cute outfits"
+        );
+    }
+
+    if(style === "clean"){
+        keywords.push(
+            "clean girl vacation outfits",
+            "neutral airport outfits",
+            "minimalist summer fits"
+        );
+    }
+
+    if(tripType === "church"){
+        keywords.push(
+            "cute church camp outfits",
+            "modest summer outfits",
+            "christian girl outfits"
+        );
+    }
+
+    if(tripType === "beach"){
+        keywords.push(
+            "coastal granddaughter outfits",
+            "beach vacation outfits",
+            "linen summer outfits"
+        );
+    }
+
+    if(activeTags.includes("photos")){
+        keywords.push("Pinterest girl photo outfits");
+    }
+
+    document.getElementById("keywords").innerHTML =
+        keywords.map(word => `<span class="keyword-chip">${word}</span>`).join("");
+
+    addList("clothing",clothing);
+    addList("toiletries",toiletries);
+    addList("shoes",shoes);
+    addList("tech",tech);
+    addList("travel",travelItems);
+    addList("extras",extras);
+
+    document.getElementById("results").style.display = "block";
+
+    window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:"smooth"
+    });
+}
+
 </script>
 
 </body>
+</html>
+""")
 
+path = "/mnt/data/packwise_full_site.html"
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
 
-Get Outlook for iOS
+print(f"Saved HTML file to {path}")

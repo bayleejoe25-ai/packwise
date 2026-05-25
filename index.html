@@ -1,0 +1,306 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baylee's Ultimate Packing Architect</title>
+    <style>
+        :root {
+            --brie-bg: #f7f9fb;
+            --brie-dark: #2c3e50;
+            --brie-accent: #78909c;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--brie-bg);
+            color: var(--brie-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        h1 { font-weight: 300; text-align: center; color: #455a64; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: var(--brie-accent); margin-bottom: 30px; }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .activity-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .tag.active {
+            background: #455a64;
+            color: white;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 20px;
+            background: #455a64;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .inventory {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .category-card {
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .category-card h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            border-bottom: 2px solid #f7f9fb;
+            padding-bottom: 10px;
+            color: #546e7a;
+        }
+
+        ul { padding-left: 18px; margin-bottom: 0; }
+        li { margin-bottom: 6px; font-size: 0.95rem; }
+
+        .travel-outfit {
+            background: #e1f5fe;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #03a9f4;
+        }
+
+        @media (max-width: 600px) {
+            .input-grid, .category-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>The Ultimate Inventory</h1>
+    <p class="subtitle">Baylee, let's account for every single item.</p>
+
+    <div class="input-grid">
+        <div>
+            <label>Trip Name</label>
+            <input type="text" id="tripName" placeholder="e.g. Disney World Vacation">
+        </div>
+        <div>
+            <label>Trip Type</label>
+            <select id="tripType">
+                <option value="standard">Standard Vacation</option>
+                <option value="summer-camp">Summer Camp (Rugged)</option>
+                <option value="reunion">Family Reunion (Georgia Summer)</option>
+                <option value="formal">Special Event / Wedding</option>
+            </select>
+        </div>
+        <div>
+            <label>Departure Date</label>
+            <input type="date" id="startDate">
+        </div>
+        <div>
+            <label>Return Date</label>
+            <input type="date" id="endDate">
+        </div>
+    </div>
+
+    <label>Special Activities</label>
+    <div class="activity-picker">
+        <div class="tag" onclick="toggleTag(this, 'beach')">Beach/Pool</div>
+        <div class="tag" onclick="toggleTag(this, 'hiking')">Hiking</div>
+        <div class="tag" onclick="toggleTag(this, 'gym')">Gym/Workout</div>
+        <div class="tag" onclick="toggleTag(this, 'fancy')">Formal Dinner</div>
+        <div class="tag" onclick="toggleTag(this, 'theme-park')">Theme Park</div>
+    </div>
+
+    <button class="generate-btn" onclick="buildInventory()">Calculate My Exact Inventory</button>
+
+    <div id="inventory" class="inventory">
+        <div class="travel-outfit" id="travelOutfit">
+            <!-- Travel outfit logic -->
+        </div>
+
+        <div class="category-grid">
+            <div class="category-card">
+                <h3>Main Clothing</h3>
+                <ul id="mainClothing"></ul>
+            </div>
+            <div class="category-card">
+                <h3>Undergarments & Socks</h3>
+                <ul id="undergarments"></ul>
+            </div>
+            <div class="category-card">
+                <h3>Footwear</h3>
+                <ul id="footwear"></ul>
+            </div>
+            <div class="category-card">
+                <h3>Toiletries (3-1-1 Rule)</h3>
+                <ul id="toiletries"></ul>
+            </div>
+            <div class="category-card">
+                <h3>Electronics & Tech</h3>
+                <ul id="electronics"></ul>
+            </div>
+            <div class="category-card">
+                <h3>Accessories & Misc</h3>
+                <ul id="accessories"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let activeTags = [];
+    function toggleTag(el, tag) {
+        el.classList.toggle('active');
+        if (activeTags.includes(tag)) {
+            activeTags = activeTags.filter(t => t !== tag);
+        } else {
+            activeTags.push(tag);
+        }
+    }
+
+    function buildInventory() {
+        const start = new Date(document.getElementById('startDate').value);
+        const end = new Date(document.getElementById('endDate').value);
+        const tripType = document.getElementById('tripType').value;
+        
+        if (isNaN(start) || isNaN(end)) {
+            alert("Baylee, please enter your dates so I can calculate your counts.");
+            return;
+        }
+
+        const days = Math.ceil(Math.abs(end - start) / (1000 * 60 * 60 * 24)) + 1;
+
+        // 1. Travel Outfit Section
+        const travelOutfit = document.getElementById('travelOutfit');
+        travelOutfit.innerHTML = `<strong>Your "Travel Day" Outfit:</strong> Wear your heaviest sneakers, your jeans/bulkiest pants, a t-shirt, and your jacket. <em>(Note: These items are NOT in your suitcase counts below).</em>`;
+
+        // 2. Main Clothing (Caps at 7 to prevent overpacking)
+        const mainClothing = document.getElementById('mainClothing');
+        const topsCount = Math.min(days - 1, 7);
+        const bottomsCount = Math.ceil(days / 3);
+        mainClothing.innerHTML = `
+            <li>${topsCount} Daily Tops</li>
+            <li>${bottomsCount} Bottoms (Pants/Shorts)</li>
+            ${activeTags.includes('fancy') ? '<li>1 Formal Outfit (Dress/Suit)</li>' : ''}
+            ${activeTags.includes('beach') ? '<li>2 Swimsuits (one to wear, one drying)</li>' : ''}
+            <li>1 Lightweight Pajama Set</li>
+        `;
+
+        // 3. Undergarments
+        const undergarments = document.getElementById('undergarments');
+        undergarments.innerHTML = `
+            <li>${days + 1} Pairs of Underwear</li>
+            <li>${days + 1} Pairs of Socks</li>
+            <li>${Math.ceil(days/3)} Bras / Undershirts</li>
+            ${activeTags.includes('gym') ? '<li>2 Sports Bras / Athletic Socks</li>' : ''}
+        `;
+
+        // 4. Footwear
+        const footwear = document.getElementById('footwear');
+        let shoes = ["1 Pair of Sandals or Loafers"];
+        if (activeTags.includes('hiking')) shoes.push("1 Pair of Hiking Boots");
+        if (activeTags.includes('fancy')) shoes.push("1 Pair of Dress Shoes");
+        if (activeTags.includes('gym')) shoes.push("1 Pair of Trainers");
+        footwear.innerHTML = shoes.map(s => `<li>${s}</li>`).join('') + `<li>(Wearing sneakers on travel day)</li>`;
+
+        // 5. Toiletries
+        const toiletries = document.getElementById('toiletries');
+        toiletries.innerHTML = `
+            <li>Toothbrush & Travel-size Paste</li>
+            <li>Deodorant</li>
+            <li>Travel-size Shampoo/Conditioner</li>
+            <li>Face Wash & Moisturizer</li>
+            <li>Hairbrush & 3 hair ties</li>
+            <li>Personal Hygiene Products</li>
+            <li>Sunscreen (Essential for Georgia/Disney)</li>
+            <li>Small First-Aid (Band-aids/Tylenol)</li>
+        `;
+
+        // 6. Electronics
+        const electronics = document.getElementById('electronics');
+        electronics.innerHTML = `
+            <li>Phone Charger Cable</li>
+            <li>Wall Plug Adapter</li>
+            <li>Portable Power Bank (For long days)</li>
+            <li>Headphones/Earbuds</li>
+            ${days > 5 ? '<li>Extra Long Charging Cable</li>' : ''}
+            ${activeTags.includes('theme-park') ? '<li>Small Electric Fan / Cooling neck ring</li>' : ''}
+        `;
+
+        // 7. Accessories
+        const accessories = document.getElementById('accessories');
+        accessories.innerHTML = `
+            <li>Sunglasses</li>
+            <li>1 Versatile Belt</li>
+            <li>1 Small Handbag or Backpack</li>
+            <li>Wallet / ID / Insurance Cards</li>
+            ${activeTags.includes('beach') ? '<li>Microfiber Travel Towel</li>' : ''}
+        `;
+
+        document.getElementById('inventory').style.display = "block";
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
+
+</body>
+</html>
+```

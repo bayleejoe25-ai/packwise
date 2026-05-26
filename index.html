@@ -1,76 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Pack-Wise</title>
 
+<!-- Playfair Display Font -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- iPhone App Icon -->
+<link rel="apple-touch-icon" href="https://files.catbox.moe/p7a6oa.png">
+
+<!-- iPhone App Settings -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pack-Wise">
+<meta name="theme-color" content="#ff1493">
+
 <style>
+
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#ffe6f2,#fff3c9,#e6fff7);
   padding:20px;
+  font-family:'Playfair Display', serif;
+
+  background:
+    radial-gradient(circle at top left,#ff8fc7 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#7dffcf 0%,transparent 25%),
+    linear-gradient(135deg,#ffd6f4,#fff066,#c4fff2);
+
+  min-height:100vh;
 }
 
 h1{
   text-align:center;
-  color:#ff2fb3;
+  color:#ff1493;
+  font-size:3rem;
+  margin-bottom:20px;
 }
 
-input,select{
+input,
+select{
   width:100%;
-  padding:10px;
-  margin:6px 0 12px;
-  border-radius:10px;
-  border:2px solid #ff2fb3;
+  padding:12px;
+  margin:8px 0 14px;
+  border-radius:14px;
+  border:3px solid #ff1493;
+  font-family:'Playfair Display', serif;
+  font-size:1rem;
+  background:white;
 }
 
 button{
   width:100%;
-  padding:12px;
-  background:#ff2fb3;
+  padding:14px;
+  background:#ff1493;
   color:white;
   border:none;
-  border-radius:10px;
-  font-weight:bold;
+  border-radius:14px;
+  font-size:1rem;
+  font-family:'Playfair Display', serif;
   cursor:pointer;
+}
+
+button:hover{
+  transform:scale(1.01);
 }
 
 .tag{
   display:inline-block;
-  padding:8px 12px;
-  margin:4px;
-  background:#c8ff4f;
+  padding:10px 15px;
+  margin:5px;
+  background:#d8ff52;
   border-radius:999px;
   cursor:pointer;
   user-select:none;
+  transition:0.2s;
+  font-family:'Playfair Display', serif;
 }
 
 .tag.active{
-  background:#ff2fb3;
+  background:#ff1493;
   color:white;
+  transform:scale(1.05);
 }
 
 .card{
   background:white;
-  margin-top:15px;
-  padding:15px;
-  border-radius:12px;
-  border:2px solid #ff2fb3;
+  margin-top:18px;
+  padding:18px;
+  border-radius:18px;
+  border:3px solid #ff1493;
+  box-shadow:0 5px 14px rgba(0,0,0,0.08);
 }
 
 h3{
-  color:#00c98a;
+  color:#00b894;
+  font-size:1.4rem;
 }
 
 h4{
-  margin-bottom:5px;
+  color:#ff1493;
+  margin-bottom:6px;
 }
-</style>
-</head>
 
-<body>
+label{
+  line-height:1.8;
+}
+
+</style>
+
+</head>
 
 <h1>Pack-Wise</h1>
 

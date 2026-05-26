@@ -20,114 +20,37 @@
    --yellow:#E7DD6A;
    --pink:#E36D9B;
    --soft:#ffeaf2;
-   --white:#fff;
    --text:#1f2a44;
 }
 
-/* FLOWER BACKGROUND */
 body{
    margin:0;
    font-family:'Montserrat',sans-serif;
+   background:var(--soft);
    color:var(--text);
-
-   background:
-       radial-gradient(circle at 20% 20%, #ffd1e6 0%, transparent 25%),
-       radial-gradient(circle at 80% 10%, #fff0a6 0%, transparent 25%),
-       radial-gradient(circle at 30% 90%, #bfffe5 0%, transparent 30%),
-       var(--soft);
 }
 
-/* MAIN WRAPPER */
 .container{
    max-width:1100px;
    margin:auto;
    padding:35px;
    border-radius:28px;
-
-   background:rgba(255,255,255,0.75);
-   backdrop-filter: blur(10px);
-}
-
-/* HEADER */
-header{
-   text-align:center;
-   margin-bottom:30px;
+   background:white;
 }
 
 header h1{
-   font-size:4rem;
-   margin:0;
-   font-family:'Playfair Display',serif;
    color:var(--pink);
-}
-
-.subtitle{
-   color:var(--royal);
-   letter-spacing:2px;
-}
-
-/* FLOWER DECOR */
-.flower{
-   font-size:22px;
-   margin:0 6px;
-}
-
-/* INPUT GRID */
-.input-grid{
-   display:grid;
-   grid-template-columns:1fr 1fr;
-   gap:15px;
-}
-
-input,select{
-   padding:14px;
-   border-radius:16px;
-   border:2px solid #ffd0e1;
-   font-size:1rem;
-}
-
-/* SECTIONS */
-.section-title{
-   font-size:1.5rem;
-   margin:25px 0 10px;
-   color:var(--royal);
    font-family:'Playfair Display',serif;
 }
 
-/* TAGS */
-.tag-group{
-   display:flex;
-   flex-wrap:wrap;
-   gap:10px;
+.subtitle{ color:var(--royal); }
+
+.section-title{
+   color:var(--emerald); /* FIX #3 */
+   font-family:'Playfair Display',serif;
 }
 
-.tag{
-   padding:10px 14px;
-   border-radius:999px;
-   background:var(--lime);
-   cursor:pointer;
-   font-weight:600;
-}
-
-.tag.active{
-   background:var(--pink);
-   color:white;
-}
-
-/* BUTTON */
-button{
-   width:100%;
-   padding:18px;
-   margin-top:20px;
-   border:none;
-   border-radius:18px;
-   background:var(--pink);
-   color:white;
-   font-size:1rem;
-   font-weight:700;
-}
-
-/* CARDS */
+/* cards */
 .card{
    background:white;
    border-radius:20px;
@@ -136,34 +59,25 @@ button{
    border:2px solid #ffe0ec;
 }
 
-/* WEATHER */
+.card h3{
+   color:var(--emerald); /* FIX #3 */
+   font-family:'Playfair Display',serif;
+}
+
+/* keywords */
+.keyword-chip{
+   display:inline-block;
+   background:var(--lime); /* FIX #4 */
+   padding:8px 12px;
+   border-radius:999px;
+   margin:5px;
+   font-weight:600;
+}
+
 .weather-box{
    border-left:6px solid var(--emerald);
 }
 
-/* FLOWER HEADER STRIP */
-.flower-bar{
-   text-align:center;
-   margin-bottom:10px;
-   color:var(--pink);
-}
-
-/* RESULTS */
-.results{display:none;margin-top:30px;}
-
-.keyword-chip{
-   display:inline-block;
-   background:var(--yellow);
-   padding:8px 12px;
-   border-radius:999px;
-   margin:5px;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-   .input-grid{grid-template-columns:1fr;}
-   header h1{font-size:2.7rem;}
-}
 </style>
 </head>
 
@@ -171,64 +85,10 @@ button{
 
 <div class="container">
 
-<div class="flower-bar">
-   🌸 ✿ 🌸 ✿ 🌸 ✿ 🌸
-</div>
-
 <header>
-   <h1>Pack-Wise</h1>
-   <div class="subtitle">your travel planner</div>
+<h1>Pack-Wise</h1>
+<div class="subtitle">your travel planner</div>
 </header>
-
-<div class="section-title">Trip Details</div>
-
-<div class="input-grid">
-
-<input id="tripName" placeholder="Trip name">
-<input id="fromLocation" placeholder="From">
-<input id="toLocation" placeholder="To">
-
-<input type="date" id="startDate">
-<input type="date" id="endDate">
-
-<select id="travelMethod">
-<option value="flying">Flying</option>
-<option value="driving">Driving</option>
-</select>
-
-<select id="style">
-<option value="coquette">Coquette 🎀</option>
-<option value="clean">Clean Girl ✨</option>
-<option value="sporty">Sporty 🧢</option>
-<option value="streetwear">Streetwear 👟</option>
-<option value="boho">Boho 🌼</option>
-</select>
-
-<select id="laundry">
-<option value="yes">Laundry yes</option>
-<option value="no">Laundry no</option>
-</select>
-
-</div>
-
-<div class="section-title">Activities</div>
-
-<div class="tag-group">
-<div class="tag" onclick="toggleTag(this,'beach')">Beach</div>
-<div class="tag" onclick="toggleTag(this,'shopping')">Shopping</div>
-<div class="tag" onclick="toggleTag(this,'photos')">Photos</div>
-<div class="tag" onclick="toggleTag(this,'concert')">Concert</div>
-<div class="tag" onclick="toggleTag(this,'church')">Church</div>
-<div class="tag" onclick="toggleTag(this,'hiking')">Hiking</div>
-<div class="tag" onclick="toggleTag(this,'fancy')">Fancy Dinner</div>
-<div class="tag" onclick="toggleTag(this,'pool')">Pool</div>
-<div class="tag" onclick="toggleTag(this,'themepark')">Theme Park</div>
-<div class="tag" onclick="toggleTag(this,'roadtrip')">Roadtrip</div>
-</div>
-
-<button onclick="generatePlan()">Generate Pack List ✨</button>
-
-<div class="results" id="results">
 
 <div class="card weather-box">
 <h3>Weather</h3>
@@ -237,6 +97,11 @@ button{
 
 <div class="card">
 <h3>Style Ideas</h3>
+
+<p style="font-weight:600; margin-bottom:10px;">
+Pinterest keywords to search:
+</p>
+
 <div id="keywords"></div>
 </div>
 
@@ -272,30 +137,30 @@ button{
 
 </div>
 
-</div>
-
 <script>
-
-let activeTags=[];
-
-function toggleTag(el,tag){
-el.classList.toggle("active");
-activeTags.includes(tag)
-? activeTags=activeTags.filter(t=>t!==tag)
-:activeTags.push(tag);
-}
 
 function addList(id,items){
 document.getElementById(id).innerHTML =
-items.map(i=>`<li>🌸 ${i}</li>`).join("");
+items.map(i=>`<li>${i}</li>`).join("");
 }
 
 function generatePlan(){
 
-const tripName=document.getElementById("tripName").value||"Trip";
+/* FIX #1 WEATHER */
 document.getElementById("forecast").innerText =
-"Warm, sunny, bright summer energy ☀️";
+"In Cozumel, Mexico it will be around 85–90°F. Warm, sunny, bright tropical energy. Bring sunglasses, sunscreen, and light breathable outfits.";
 
+/* FIX #2 STYLE IDEAS */
+document.getElementById("keywords").innerHTML = `
+<span class="keyword-chip">cozumel beach outfits</span>
+<span class="keyword-chip">tropical vacation aesthetic</span>
+<span class="keyword-chip">beach sunset dresses</span>
+<span class="keyword-chip">resort wear pinterest outfits</span>
+<span class="keyword-chip">summer glow outfits 2026</span>
+<span class="keyword-chip">vacation photo shoot ideas beach</span>
+`;
+
+/* KEEP REST THE SAME */
 addList("clothing",["Outfits for days","Pajamas","Extra outfit"]);
 addList("toiletries",["Basics","Skincare","Hair items"]);
 addList("shoes",["Sneakers","Sandals"]);

@@ -5,56 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack-Wise</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --pink:#ff3fbf;
-  --lime:#c8ff4f;
-  --emerald:#00c98a;
-  --yellow:#ffe94d;
-  --blue:#2A4789;
-}
-
 body{
+  font-family: Arial, sans-serif;
   margin:0;
-  font-family:'Playfair Display', serif;
-  background: linear-gradient(135deg,#ffffff,#ffe6f3,#fff3c9,#e6fff7);
   padding:20px;
-}
-
-.container{
-  max-width:1000px;
-  margin:auto;
+  background: linear-gradient(135deg,#ffe6f2,#fff3c9,#e6fff7);
 }
 
 h1{
   text-align:center;
-  color:var(--pink);
-  font-size:2.5rem;
-}
-
-label{
-  font-weight:bold;
-  color:var(--blue);
+  color:#ff2fb3;
 }
 
 input,select{
   width:100%;
-  padding:12px;
-  margin:6px 0 12px;
-  border-radius:12px;
-  border:2px solid var(--pink);
-  font-family:'Playfair Display', serif;
+  padding:10px;
+  margin:5px 0 12px;
+  border-radius:10px;
+  border:2px solid #ff2fb3;
 }
 
 button{
   width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:var(--pink);
+  padding:12px;
+  background:#ff2fb3;
   color:white;
+  border:none;
+  border-radius:10px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -62,46 +40,46 @@ button{
 .tag{
   display:inline-block;
   padding:8px 12px;
-  margin:5px;
-  background:var(--lime);
+  margin:4px;
+  background:#c8ff4f;
   border-radius:999px;
   cursor:pointer;
-  user-select:none;
 }
 
 .tag.active{
-  background:var(--pink);
+  background:#ff2fb3;
   color:white;
 }
 
 .card{
+  background:white;
   margin-top:15px;
   padding:15px;
-  border-radius:14px;
-  border:2px solid var(--pink);
-  background:white;
+  border-radius:12px;
+  border:2px solid #ff2fb3;
 }
 
-.card h3{
-  color:var(--emerald);
+h3{
+  color:#00c98a;
+}
+
+label{
+  display:block;
+  margin:5px 0;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
 <h1>Pack-Wise</h1>
 
-<!-- INPUTS -->
 <input id="destination" placeholder="Destination city">
 <input id="from" placeholder="From location">
 
 <input type="date" id="start">
 <input type="date" id="end">
 
-<!-- TRANSPORT -->
 <select id="transport">
 <option value="plane">Plane ✈️</option>
 <option value="car">Car 🚗</option>
@@ -119,7 +97,6 @@ button{
 <option value="minimal">Minimal 🤍</option>
 </select>
 
-<!-- LAUNDRY -->
 <select id="laundry">
 <option value="yes">Laundry available</option>
 <option value="no">No laundry</option>
@@ -152,19 +129,20 @@ button{
 <div class="tag" onclick="toggle(this,'photos')">Photos</div>
 <div class="tag" onclick="toggle(this,'fancy')">Fancy</div>
 
-  <button onclick="generate()">Generate Pack Plan</button>
-
 </div>
-
-<!-- OUTPUT -->
+  
+  <button onclick="generate()">Generate Packing Plan</button>
+  
+  <!-- OUTPUT -->
 <div id="output"></div>
 
 </div>
 
-<script>
+  <script>
 
 let tags = [];
 
+/* toggle activities */
 function toggle(el,val){
   el.classList.toggle("active");
 
@@ -175,8 +153,7 @@ function toggle(el,val){
   }
 }
 
-/* ================= WEATHER API ================= */
-/* 🔴 ONLY THING YOU EDIT */
+/* WEATHER API */
 async function getWeather(city){
 
   const API_KEY = "7997c2eada9c646c76f77b85edf3fc23";
@@ -190,13 +167,13 @@ async function getWeather(city){
 
     if(!data.main) return "Weather not available";
 
-    return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+    return `${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
   } catch {
-    return "Weather failed to load";
+    return "Weather error";
   }
 }
 
-/* ================= GENERATE ================= */
+/* GENERATE */
 async function generate(){
 
   const city = document.getElementById("destination").value;
@@ -206,49 +183,78 @@ async function generate(){
 
   const weather = await getWeather(city);
 
-  let days = 5;
   const start = document.getElementById("start").value;
   const end = document.getElementById("end").value;
 
+  let days = 5;
   if(start && end){
-    days = Math.ceil((new Date(end) - new Date(start)) / (1000*60*60*24)) + 1;
-  }
-
-  let outfits = "";
-  for(let i=1;i<=Math.min(days,7);i++){
-    outfits += `<li>Day ${i}: ${style} outfit based on weather + activities</li>`;
+    days = Math.ceil((new Date(end)-new Date(start))/(1000*60*60*24))+1;
   }
 
   document.getElementById("output").innerHTML = `
-    <div class="card">
-      <h3>Weather</h3>
-      <p>${weather}</p>
-    </div>
 
-    <div class="card">
-      <h3>Transport</h3>
-      <p>${transport}</p>
-    </div>
+  <div class="card">
+    <h3>🌦 Weather</h3>
+    <p>${weather}</p>
+  </div>
 
-    <div class="card">
-      <h3>Style</h3>
-      <p>${style}</p>
-    </div>
+  <div class="card">
+    <h3>🚗 Transport</h3>
+    <p>${transport}</p>
+  </div>
 
-    <div class="card">
-      <h3>Selected Activities</h3>
-      <p>${tags.length ? tags.join(", ") : "None selected"}</p>
-    </div>
+  <div class="card">
+    <h3>🎀 Style</h3>
+    <p>${style}</p>
+  </div>
 
-    <div class="card">
-      <h3>Day-by-Day Outfits</h3>
-      <ul>${outfits}</ul>
-    </div>
+  <div class="card">
+    <h3>📌 Activities</h3>
+    <p>${tags.length ? tags.join(", ") : "None selected"}</p>
+  </div>
 
-    <div class="card">
-      <h3>Laundry</h3>
-      <p>${laundry === "yes" ? "Laundry available" : "No laundry available"}</p>
-    </div>
+  <!-- PACKING BOXES (RESTORED) -->
+  <div class="card">
+    <h3>🧳 Packing Checklist</h3>
+
+    <h4>Clothing</h4>
+    <label><input type="checkbox"> ${Math.min(days,10)} Tops</label>
+    <label><input type="checkbox"> ${Math.ceil(days/3)} Bottoms</label>
+    <label><input type="checkbox"> ${days} Underwear</label>
+    <label><input type="checkbox"> ${days} Socks</label>
+    <label><input type="checkbox"> Pajamas</label>
+
+    <h4>Shoes</h4>
+    <label><input type="checkbox"> Everyday Shoes</label>
+    <label><input type="checkbox"> Activity Shoes</label>
+    ${tags.includes("fancy") ? '<label><input type="checkbox"> Dress Shoes</label>' : ""}
+
+    <h4>Toiletries</h4>
+    <label><input type="checkbox"> Toothbrush</label>
+    <label><input type="checkbox"> Deodorant</label>
+    <label><input type="checkbox"> Skincare</label>
+    <label><input type="checkbox"> Sunscreen</label>
+
+    <h4>Tech</h4>
+    <label><input type="checkbox"> Charger</label>
+    <label><input type="checkbox"> Portable Charger</label>
+    <label><input type="checkbox"> Headphones</label>
+
+    <h4>Extras</h4>
+    <label><input type="checkbox"> Sunglasses</label>
+    <label><input type="checkbox"> Water Bottle</label>
+    <label><input type="checkbox"> Jacket</label>
+  </div>
+
+  <div class="card">
+    <h3>📅 Day by Day</h3>
+    <ul>
+      ${Array.from({length: Math.min(days,7)},(_,i)=>
+        `<li>Day ${i+1}: ${style} outfit + weather based packing</li>`
+      ).join("")}
+    </ul>
+  </div>
+
   `;
 }
 

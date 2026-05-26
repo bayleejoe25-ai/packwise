@@ -163,73 +163,70 @@ button{
 </div>
 
 <script>
-
 let tags = [];
 
 function toggle(el,val){
-  el.classList.toggle("active");
+   el.classList.toggle("active");
 
-  if(tags.includes(val)){
-      tags = tags.filter(t => t !== val);
-  } else {
-      tags.push(val);
-  }
+   if(tags.includes(val)){
+       tags = tags.filter(t => t !== val);
+   } else {
+       tags.push(val);
+   }
 }
 
-/* WEATHER */
 async function getWeather(city){
 
-  const API_KEY = “ ﻿7ac2b689303b14f7361e5b55e635d553";
+   const API_KEY = "PASTE_YOUR_API_KEY_HERE";
 
-  const url =
-  `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`;
+   try {
+       const url =
+       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`;
 
-  const res = await fetch(url);
-  const data = await res.json();
+       const res = await fetch(url);
+       const data = await res.json();
 
-  if(!data.main){
-      return "Weather not available.";
-  }
+       if(!data.main){
+           return "Weather not available.";
+       }
 
-  return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+       return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+
+   } catch (err) {
+       return "Weather failed to load.";
+   }
 }
 
-/* GENERATE */
 async function generate(){
 
-  const city = document.getElementById("destination").value;
-  const transport = document.getElementById("transport").value;
-  const laundry = document.getElementById("laundry").value;
+   const city = document.getElementById("destination").value;
+   const transport = document.getElementById("transport").value;
+   const laundry = document.getElementById("laundry").value;
 
-  const weather = await getWeather(city);
+   const weather = await getWeather(city);
 
-  let html = `
-      <div class="card">
-          <h3>Weather</h3>
-          <p>${weather}</p>
-      </div>
+   document.getElementById("output").innerHTML = `
+       <div class="card">
+           <h3>Weather</h3>
+           <p>${weather}</p>
+       </div>
 
-      <div class="card">
-          <h3>Transportation</h3>
-          <p>${transport}</p>
-      </div>
+       <div class="card">
+           <h3>Transportation</h3>
+           <p>${transport}</p>
+       </div>
 
-      <div class="card">
-          <h3>Laundry Situation</h3>
-          <p>${laundry === "yes" ? "Laundry available" : "No laundry available"}</p>
-      </div>
+       <div class="card">
+           <h3>Laundry Situation</h3>
+           <p>${laundry === "yes" ? "Laundry available" : "No laundry available"}</p>
+       </div>
 
-      <div class="card">
-          <h3>Style Ideas</h3>
-          <p>vacation outfits, pinterest summer fits, airport outfits</p>
-      </div>
-
-      <div class="card">
-          <h3>Pack List</h3>
-          <p>Clothes, toiletries, shoes, tech, travel essentials, extras</p>
-      </div>
-  `;
-
+       <div class="card">
+           <h3>Pack List</h3>
+           <p>Clothes, toiletries, shoes, tech, travel essentials, extras</p>
+       </div>
+   `;
+}
   document.getElementById("output").innerHTML = html;
 }
 

@@ -7,10 +7,10 @@
 
 <style>
 body{
-  font-family: Arial, sans-serif;
   margin:0;
-  padding:20px;
+  font-family: Arial, sans-serif;
   background: linear-gradient(135deg,#ffe6f2,#fff3c9,#e6fff7);
+  padding:20px;
 }
 
 h1{
@@ -21,7 +21,7 @@ h1{
 input,select{
   width:100%;
   padding:10px;
-  margin:5px 0 12px;
+  margin:6px 0 12px;
   border-radius:10px;
   border:2px solid #ff2fb3;
 }
@@ -44,6 +44,7 @@ button{
   background:#c8ff4f;
   border-radius:999px;
   cursor:pointer;
+  user-select:none;
 }
 
 .tag.active{
@@ -63,9 +64,8 @@ h3{
   color:#00c98a;
 }
 
-label{
-  display:block;
-  margin:5px 0;
+h4{
+  margin-bottom:5px;
 }
 </style>
 </head>
@@ -87,7 +87,6 @@ label{
 <option value="bus">Bus 🚌</option>
 </select>
 
-<!-- STYLE -->
 <select id="style">
 <option value="coquette">Coquette 🎀</option>
 <option value="clean">Clean Girl ✨</option>
@@ -102,47 +101,39 @@ label{
 <option value="no">No laundry</option>
 </select>
 
-<!-- ACTIVITIES -->
-<div style="margin-top:20px">
+<button onclick="generate()">Generate Packing Plan</button>
 
+<!-- ACTIVITIES -->
+<div style="margin-top:10px">
 <div class="tag" onclick="toggle(this,'beach')">Beach</div>
 <div class="tag" onclick="toggle(this,'lake')">Lake</div>
 <div class="tag" onclick="toggle(this,'shopping')">Shopping</div>
-<div class="tag" onclick="toggle(this,'dining')">Dining Out</div>
-<div class="tag" onclick="toggle(this,'outdoor')">Outdoor Activities</div>
-<div class="tag" onclick="toggle(this,'water')">Water Activities</div>
+<div class="tag" onclick="toggle(this,'dining')">Dining</div>
+<div class="tag" onclick="toggle(this,'outdoor')">Outdoor</div>
+<div class="tag" onclick="toggle(this,'water')">Water</div>
 <div class="tag" onclick="toggle(this,'entertainment')">Entertainment</div>
 <div class="tag" onclick="toggle(this,'sightseeing')">Sightseeing</div>
 <div class="tag" onclick="toggle(this,'exploring')">Exploring</div>
 <div class="tag" onclick="toggle(this,'relaxing')">Relaxing</div>
 <div class="tag" onclick="toggle(this,'sports')">Sports</div>
 <div class="tag" onclick="toggle(this,'nightlife')">Nightlife</div>
-<div class="tag" onclick="toggle(this,'nature')">Nature Time</div>
-<div class="tag" onclick="toggle(this,'travel')">Travel Experiences</div>
-<div class="tag" onclick="toggle(this,'social')">Social Activities</div>
-<div class="tag" onclick="toggle(this,'creative')">Creative Activities</div>
+<div class="tag" onclick="toggle(this,'nature')">Nature</div>
+<div class="tag" onclick="toggle(this,'travel')">Travel</div>
+<div class="tag" onclick="toggle(this,'social')">Social</div>
+<div class="tag" onclick="toggle(this,'creative')">Creative</div>
 <div class="tag" onclick="toggle(this,'events')">Events</div>
-<div class="tag" onclick="toggle(this,'local')">Local Attractions</div>
-<div class="tag" onclick="toggle(this,'casual')">Casual Hangouts</div>
-<div class="tag" onclick="toggle(this,'wandering')">Random Wandering</div>
-<div class="tag" onclick="toggle(this,'adventure')">Adventure Activities</div>
+<div class="tag" onclick="toggle(this,'casual')">Casual</div>
+<div class="tag" onclick="toggle(this,'adventure')">Adventure</div>
 <div class="tag" onclick="toggle(this,'photos')">Photos</div>
 <div class="tag" onclick="toggle(this,'fancy')">Fancy</div>
-
 </div>
-  
-  <button onclick="generate()">Generate Packing Plan</button>
-  
-  <!-- OUTPUT -->
+
 <div id="output"></div>
 
-</div>
-
-  <script>
+<script>
 
 let tags = [];
 
-/* toggle activities */
 function toggle(el,val){
   el.classList.toggle("active");
 
@@ -153,59 +144,7 @@ function toggle(el,val){
   }
 }
 
-<div class="card">
-  <h3>📌 Style Keywords (Pinterest Inspo)</h3>
-
-  <p style="font-size:14px; opacity:0.8;">
-    Search these on Pinterest to find outfit ideas for your trip aesthetic.
-  </p>
-
-  <ul>
-    ${style === "coquette" ? `
-      <li>coquette summer outfits</li>
-      <li>pink aesthetic vacation outfits</li>
-      <li>soft girl travel outfits</li>
-      <li>girly airport outfit ideas</li>
-    ` : ""}
-
-    ${style === "clean" ? `
-      <li>clean girl aesthetic outfits</li>
-      <li>minimal summer vacation outfits</li>
-      <li>neutral airport outfits</li>
-      <li>simple chic travel outfits</li>
-    ` : ""}
-
-    ${style === "streetwear" ? `
-      <li>streetwear summer outfits</li>
-      <li>baggy airport outfit ideas</li>
-      <li>urban travel outfits aesthetic</li>
-      <li>sneaker outfit inspo vacation</li>
-    ` : ""}
-
-    ${style === "boho" ? `
-      <li>boho summer outfits travel</li>
-      <li>flowy vacation dresses aesthetic</li>
-      <li>festival beach outfits boho style</li>
-      <li>earthy tone vacation outfits</li>
-    ` : ""}
-
-    ${style === "aesthetic" ? `
-      <li>aesthetic vacation outfits pinterest</li>
-      <li>cute travel outfit ideas summer</li>
-      <li>trendy airport outfits aesthetic</li>
-      <li>soft aesthetic outfits inspo</li>
-    ` : ""}
-
-    ${style === "minimal" ? `
-      <li>minimal travel outfits aesthetic</li>
-      <li>capsule wardrobe vacation outfits</li>
-      <li>clean neutral outfit inspo</li>
-      <li>simple chic summer outfits</li>
-    ` : ""}
-  </ul>
-</div>
-    
-/* WEATHER API */
+/* WEATHER */
 async function getWeather(city){
 
   const API_KEY = "7997c2eada9c646c76f77b85edf3fc23";
@@ -246,63 +185,106 @@ async function generate(){
   document.getElementById("output").innerHTML = `
 
   <div class="card">
-    <h3>🌦 Weather</h3>
+    <h3>Weather</h3>
     <p>${weather}</p>
   </div>
 
   <div class="card">
-    <h3>🚗 Transport</h3>
+    <h3>Transport</h3>
     <p>${transport}</p>
   </div>
 
   <div class="card">
-    <h3>🎀 Style</h3>
+    <h3>Style</h3>
     <p>${style}</p>
   </div>
 
+  <!-- PINTEREST -->
   <div class="card">
-    <h3>📌 Activities</h3>
+    <h3>Style Keywords (Pinterest)</h3>
+    <p>Search these on Pinterest for outfit inspo:</p>
+    <ul>
+      ${style === "coquette" ? `
+        <li>coquette outfits</li>
+        <li>pink aesthetic outfits</li>
+        <li>soft girl summer</li>
+      ` : ""}
+
+      ${style === "clean" ? `
+        <li>clean girl outfits</li>
+        <li>minimal summer outfits</li>
+        <li>neutral travel fits</li>
+      ` : ""}
+
+      ${style === "streetwear" ? `
+        <li>streetwear outfits summer</li>
+        <li>baggy airport outfits</li>
+        <li>urban aesthetic fits</li>
+      ` : ""}
+
+      ${style === "boho" ? `
+        <li>boho summer outfits</li>
+        <li>flowy vacation dresses</li>
+        <li>earthy aesthetic outfits</li>
+      ` : ""}
+
+      ${style === "aesthetic" ? `
+        <li>aesthetic outfits pinterest</li>
+        <li>cute travel outfits</li>
+        <li>trendy summer fits</li>
+      ` : ""}
+
+      ${style === "minimal" ? `
+        <li>minimal outfits aesthetic</li>
+        <li>capsule wardrobe travel</li>
+        <li>simple chic outfits</li>
+      ` : ""}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Activities</h3>
     <p>${tags.length ? tags.join(", ") : "None selected"}</p>
   </div>
 
-  <!-- PACKING BOXES (RESTORED) -->
+  <!-- PACKING CHECKLIST -->
   <div class="card">
-    <h3>🧳 Packing Checklist</h3>
+    <h3>Packing Checklist</h3>
 
     <h4>Clothing</h4>
-    <label><input type="checkbox"> ${Math.min(days,10)} Tops</label>
-    <label><input type="checkbox"> ${Math.ceil(days/3)} Bottoms</label>
-    <label><input type="checkbox"> ${days} Underwear</label>
-    <label><input type="checkbox"> ${days} Socks</label>
+    <label><input type="checkbox"> ${Math.min(days,10)} Tops</label><br>
+    <label><input type="checkbox"> ${Math.ceil(days/3)} Bottoms</label><br>
+    <label><input type="checkbox"> ${days} Underwear</label><br>
+    <label><input type="checkbox"> ${days} Socks</label><br>
     <label><input type="checkbox"> Pajamas</label>
 
     <h4>Shoes</h4>
-    <label><input type="checkbox"> Everyday Shoes</label>
-    <label><input type="checkbox"> Activity Shoes</label>
+    <label><input type="checkbox"> Everyday Shoes</label><br>
+    <label><input type="checkbox"> Activity Shoes</label><br>
     ${tags.includes("fancy") ? '<label><input type="checkbox"> Dress Shoes</label>' : ""}
 
     <h4>Toiletries</h4>
-    <label><input type="checkbox"> Toothbrush</label>
-    <label><input type="checkbox"> Deodorant</label>
-    <label><input type="checkbox"> Skincare</label>
+    <label><input type="checkbox"> Toothbrush</label><br>
+    <label><input type="checkbox"> Deodorant</label><br>
+    <label><input type="checkbox"> Skincare</label><br>
     <label><input type="checkbox"> Sunscreen</label>
 
     <h4>Tech</h4>
-    <label><input type="checkbox"> Charger</label>
-    <label><input type="checkbox"> Portable Charger</label>
+    <label><input type="checkbox"> Charger</label><br>
+    <label><input type="checkbox"> Portable Charger</label><br>
     <label><input type="checkbox"> Headphones</label>
 
     <h4>Extras</h4>
-    <label><input type="checkbox"> Sunglasses</label>
-    <label><input type="checkbox"> Water Bottle</label>
+    <label><input type="checkbox"> Sunglasses</label><br>
+    <label><input type="checkbox"> Water Bottle</label><br>
     <label><input type="checkbox"> Jacket</label>
   </div>
 
   <div class="card">
-    <h3>📅 Day by Day</h3>
+    <h3>Day by Day</h3>
     <ul>
       ${Array.from({length: Math.min(days,7)},(_,i)=>
-        `<li>Day ${i+1}: ${style} outfit + weather based packing</li>`
+        `<li>Day ${i+1}: ${style} outfit plan</li>`
       ).join("")}
     </ul>
   </div>

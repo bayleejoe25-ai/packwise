@@ -5,77 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack-Wise</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<link rel="icon" href="https://files.catbox.moe/p7a6oa.png">
-<link rel="apple-touch-icon" href="https://files.catbox.moe/p7a6oa.png">
-
-<meta name="theme-color" content="#E36D9B">
+<!-- FONT: ONLY ONE -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* 🎨 VIBRANT COLOR SYSTEM */
 :root{
+   --pink:#ff4fbf;
+   --emerald:#00e39a;
+   --lime:#c8ff4f;
+   --yellow:#fff04d;
    --royal:#2A4789;
-   --emerald:#10B183;
-   --lime:#A0CB75;
-   --yellow:#E7DD6A;
-   --pink:#E36D9B;
-   --soft:#ffeaf2;
-   --text:#1f2a44;
 }
 
+/* 🌈 BACKGROUND (LOUD + SUMMER ENERGY) */
 body{
    margin:0;
-   font-family:'Montserrat',sans-serif;
-   background:var(--soft);
-   color:var(--text);
+   font-family:'Playfair Display', serif;
+
+   background:
+       radial-gradient(circle at 10% 10%, #ff4fbf 0%, transparent 35%),
+       radial-gradient(circle at 90% 20%, #fff04d 0%, transparent 40%),
+       radial-gradient(circle at 30% 90%, #00e39a 0%, transparent 40%),
+       radial-gradient(circle at 80% 80%, #2A4789 0%, transparent 45%),
+       linear-gradient(135deg,#ffffff,#ffe6f3);
+
+   color:#111;
+   padding:20px;
 }
 
 .container{
-   max-width:1100px;
+   max-width:1000px;
    margin:auto;
-   padding:35px;
-   border-radius:28px;
-   background:white;
 }
 
-header h1{
+/* HEADER */
+h1{
+   text-align:center;
+   font-size:3.5rem;
    color:var(--pink);
-   font-family:'Playfair Display',serif;
+   margin-bottom:0;
 }
 
-.subtitle{ color:var(--royal); }
-
-.section-title{
-   color:var(--emerald); /* FIX #3 */
-   font-family:'Playfair Display',serif;
+.subtitle{
+   text-align:center;
+   color:var(--royal);
+   letter-spacing:2px;
+   margin-bottom:20px;
 }
 
-/* cards */
+/* INPUTS */
+input,select{
+   width:100%;
+   padding:12px;
+   margin:6px 0;
+   border-radius:12px;
+   border:2px solid var(--pink);
+   font-family:'Playfair Display', serif;
+}
+
+/* BUTTON */
+button{
+   width:100%;
+   padding:15px;
+   margin-top:10px;
+   border:none;
+   border-radius:14px;
+   background:linear-gradient(135deg,var(--pink),var(--yellow));
+   color:white;
+   font-weight:bold;
+   cursor:pointer;
+}
+
+/* TAGS */
+.tag{
+   display:inline-block;
+   padding:8px 12px;
+   margin:5px;
+   border-radius:999px;
+   background:var(--lime);
+   cursor:pointer;
+   font-weight:bold;
+}
+
+.tag.active{
+   background:var(--pink);
+   color:white;
+}
+
+/* CARDS */
 .card{
-   background:white;
-   border-radius:20px;
-   padding:20px;
-   margin-top:20px;
-   border:2px solid #ffe0ec;
+   background:rgba(255,255,255,0.95);
+   margin-top:15px;
+   padding:15px;
+   border-radius:18px;
+   border:3px solid var(--pink);
+   box-shadow:0 10px 25px rgba(255,79,191,0.25);
 }
 
 .card h3{
-   color:var(--emerald); /* FIX #3 */
-   font-family:'Playfair Display',serif;
+   color:var(--emerald);
+   margin-top:0;
 }
 
-/* keywords */
-.keyword-chip{
+/* OUTPUT TEXT */
+.keyword{
    display:inline-block;
-   background:var(--lime); /* FIX #4 */
-   padding:8px 12px;
+   background:var(--lime);
+   padding:6px 10px;
    border-radius:999px;
-   margin:5px;
-   font-weight:600;
+   margin:4px;
+   font-weight:bold;
 }
 
-.weather-box{
-   border-left:6px solid var(--emerald);
+ul{
+   padding-left:20px;
 }
 
 </style>
@@ -85,90 +130,112 @@ header h1{
 
 <div class="container">
 
-<header>
 <h1>Pack-Wise</h1>
 <div class="subtitle">your travel planner</div>
-</header>
 
-<div class="card weather-box">
-<h3>Weather</h3>
-<p id="forecast"></p>
+<input id="tripName" placeholder="Trip name">
+<input id="destination" placeholder="Destination city (Tokyo, Paris, etc)">
+<input id="fromLocation" placeholder="From">
+
+<input type="date" id="startDate">
+<input type="date" id="endDate">
+
+<select id="style">
+<option value="coquette">Coquette 🎀</option>
+<option value="clean">Clean Girl ✨</option>
+<option value="sporty">Sporty 🧢</option>
+</select>
+
+<div>
+<div class="tag" onclick="toggle(this,'beach')">Beach</div>
+<div class="tag" onclick="toggle(this,'shopping')">Shopping</div>
+<div class="tag" onclick="toggle(this,'photos')">Photos</div>
+<div class="tag" onclick="toggle(this,'fancy')">Fancy</div>
 </div>
 
-<div class="card">
-<h3>Style Ideas</h3>
+<button onclick="generate()">Generate Pack List ✨</button>
 
-<p style="font-weight:600; margin-bottom:10px;">
-Pinterest keywords to search:
-</p>
-
-<div id="keywords"></div>
-</div>
-
-<div class="card">
-<h3>Clothing</h3>
-<ul id="clothing"></ul>
-</div>
-
-<div class="card">
-<h3>Toiletries</h3>
-<ul id="toiletries"></ul>
-</div>
-
-<div class="card">
-<h3>Shoes</h3>
-<ul id="shoes"></ul>
-</div>
-
-<div class="card">
-<h3>Tech</h3>
-<ul id="tech"></ul>
-</div>
-
-<div class="card">
-<h3>Travel</h3>
-<ul id="travel"></ul>
-</div>
-
-<div class="card">
-<h3>Extras</h3>
-<ul id="extras"></ul>
-</div>
+<div id="output"></div>
 
 </div>
 
 <script>
 
-function addList(id,items){
-document.getElementById(id).innerHTML =
-items.map(i=>`<li>${i}</li>`).join("");
+let tags = [];
+
+function toggle(el,val){
+   el.classList.toggle("active");
+
+   if(tags.includes(val)){
+       tags = tags.filter(t => t !== val);
+   } else {
+       tags.push(val);
+   }
 }
 
-function generatePlan(){
+/* 🌦 REAL WEATHER FUNCTION */
+async function getWeather(city){
 
-/* FIX #1 WEATHER */
-document.getElementById("forecast").innerText =
-"In Cozumel, Mexico it will be around 85–90°F. Warm, sunny, bright tropical energy. Bring sunglasses, sunscreen, and light breathable outfits.";
+   /* 🔑🔑🔑 PUT YOUR API KEY RIGHT HERE 🔑🔑🔑 */
+   const API_KEY = "PASTE_YOUR_API_KEY_HERE";
 
-/* FIX #2 STYLE IDEAS */
-document.getElementById("keywords").innerHTML = `
-<span class="keyword-chip">cozumel beach outfits</span>
-<span class="keyword-chip">tropical vacation aesthetic</span>
-<span class="keyword-chip">beach sunset dresses</span>
-<span class="keyword-chip">resort wear pinterest outfits</span>
-<span class="keyword-chip">summer glow outfits 2026</span>
-<span class="keyword-chip">vacation photo shoot ideas beach</span>
-`;
+   const url =
+   `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`;
 
-/* KEEP REST THE SAME */
-addList("clothing",["Outfits for days","Pajamas","Extra outfit"]);
-addList("toiletries",["Basics","Skincare","Hair items"]);
-addList("shoes",["Sneakers","Sandals"]);
-addList("tech",["Charger","Headphones"]);
-addList("travel",["ID","Phone","Wallet"]);
-addList("extras",["Sunglasses","Water bottle"]);
+   const res = await fetch(url);
+   const data = await res.json();
 
-document.getElementById("results").style.display="block";
+   if(!data.main){
+       return "Weather not available for this location.";
+   }
+
+   return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+}
+
+/* MAIN FUNCTION */
+async function generate(){
+
+   const city = document.getElementById("destination").value;
+
+   const weather = await getWeather(city);
+
+   let styleIdeas = "";
+
+   if(tags.includes("beach")){
+       styleIdeas += `<span class="keyword">beach outfits</span>`;
+   }
+   if(tags.includes("photos")){
+       styleIdeas += `<span class="keyword">pinterest photo fits</span>`;
+   }
+   if(tags.includes("fancy")){
+       styleIdeas += `<span class="keyword">elegant vacation outfits</span>`;
+   }
+
+   let html = `
+       <div class="card">
+           <h3>Weather</h3>
+           <p>${weather}</p>
+       </div>
+
+       <div class="card">
+           <h3>Style Ideas</h3>
+           ${styleIdeas || "<p>vacation outfits, summer aesthetic, airport fits</p>"}
+       </div>
+
+       <div class="card">
+           <h3>Pack List</h3>
+           <ul>
+               <li>Outfits</li>
+               <li>Pajamas</li>
+               <li>Shoes</li>
+               <li>Toiletries</li>
+               <li>Tech</li>
+               <li>Travel essentials</li>
+           </ul>
+       </div>
+   `;
+
+   document.getElementById("output").innerHTML = html;
 }
 
 </script>

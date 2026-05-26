@@ -241,4 +241,733 @@ async function generate(){
 </script>
 
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack-Wise</title>
+
+<!-- FONT: ONLY ONE -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* 🎨 VIBRANT COLOR SYSTEM */
+:root{
+   --pink:#ff4fbf;
+   --emerald:#00e39a;
+   --lime:#c8ff4f;
+   --yellow:#fff04d;
+   --royal:#2A4789;
+}
+
+/* 🌈 BACKGROUND (LOUD + SUMMER ENERGY) */
+body{
+   margin:0;
+   font-family:'Playfair Display', serif;
+
+   background:
+       radial-gradient(circle at 10% 10%, #ff4fbf 0%, transparent 35%),
+       radial-gradient(circle at 90% 20%, #fff04d 0%, transparent 40%),
+       radial-gradient(circle at 30% 90%, #00e39a 0%, transparent 40%),
+       radial-gradient(circle at 80% 80%, #2A4789 0%, transparent 45%),
+       linear-gradient(135deg,#ffffff,#ffe6f3);
+
+   color:#111;
+   padding:20px;
+}
+
+.container{
+   max-width:1000px;
+   margin:auto;
+}
+
+/* HEADER */
+h1{
+   text-align:center;
+   font-size:3.5rem;
+   color:var(--pink);
+   margin-bottom:0;
+}
+
+.subtitle{
+   text-align:center;
+   color:var(--royal);
+   letter-spacing:2px;
+   margin-bottom:20px;
+}
+
+/* INPUTS */
+input,select{
+   width:100%;
+   padding:12px;
+   margin:6px 0;
+   border-radius:12px;
+   border:2px solid var(--pink);
+   font-family:'Playfair Display', serif;
+}
+
+/* BUTTON */
+button{
+   width:100%;
+   padding:15px;
+   margin-top:10px;
+   border:none;
+   border-radius:14px;
+   background:linear-gradient(135deg,var(--pink),var(--yellow));
+   color:white;
+   font-weight:bold;
+   cursor:pointer;
+}
+
+/* TAGS */
+.tag{
+   display:inline-block;
+   padding:8px 12px;
+   margin:5px;
+   border-radius:999px;
+   background:var(--lime);
+   cursor:pointer;
+   font-weight:bold;
+}
+
+.tag.active{
+   background:var(--pink);
+   color:white;
+}
+
+/* CARDS */
+.card{
+   background:rgba(255,255,255,0.95);
+   margin-top:15px;
+   padding:15px;
+   border-radius:18px;
+   border:3px solid var(--pink);
+   box-shadow:0 10px 25px rgba(255,79,191,0.25);
+}
+
+.card h3{
+   color:var(--emerald);
+   margin-top:0;
+}
+
+/* OUTPUT TEXT */
+.keyword{
+   display:inline-block;
+   background:var(--lime);
+   padding:6px 10px;
+   border-radius:999px;
+   margin:4px;
+   font-weight:bold;
+}
+
+ul{
+   padding-left:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Pack-Wise</h1>
+<div class="subtitle">your travel planner</div>
+
+<input id="tripName" placeholder="Trip name">
+<input id="destination" placeholder="Destination city (Tokyo, Paris, etc)">
+<input id="fromLocation" placeholder="From">
+
+<input type="date" id="startDate">
+<input type="date" id="endDate">
+
+<select id="style">
+<option value="coquette">Coquette 🎀</option>
+<option value="clean">Clean Girl ✨</option>
+<option value="sporty">Sporty 🧢</option>
+</select>
+
+<div>
+<div class="tag" onclick="toggle(this,'beach')">Beach</div>
+<div class="tag" onclick="toggle(this,'shopping')">Shopping</div>
+<div class="tag" onclick="toggle(this,'photos')">Photos</div>
+<div class="tag" onclick="toggle(this,'fancy')">Fancy</div>
+</div>
+
+<button onclick="generate()">Generate Pack List ✨</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+let tags = [];
+
+function toggle(el,val){
+   el.classList.toggle("active");
+
+   if(tags.includes(val)){
+       tags = tags.filter(t => t !== val);
+   } else {
+       tags.push(val);
+   }
+}
+
+/* 🌦 REAL WEATHER FUNCTION */
+async function getWeather(city){
+
+   /* 🔑🔑🔑 PUT YOUR API KEY RIGHT HERE 🔑🔑🔑 */
+   const API_KEY = "PASTE_YOUR_API_KEY_HERE";
+
+   const url =
+   `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`;
+
+   const res = await fetch(url);
+   const data = await res.json();
+
+   if(!data.main){
+       return "Weather not available for this location.";
+   }
+
+   return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+}
+
+/* MAIN FUNCTION */
+async function generate(){
+
+   const city = document.getElementById("destination").value;
+
+   const weather = await getWeather(city);
+
+   let styleIdeas = "";
+
+   if(tags.includes("beach")){
+       styleIdeas += `<span class="keyword">beach outfits</span>`;
+   }
+   if(tags.includes("photos")){
+       styleIdeas += `<span class="keyword">pinterest photo fits</span>`;
+   }
+   if(tags.includes("fancy")){
+       styleIdeas += `<span class="keyword">elegant vacation outfits</span>`;
+   }
+
+   let html = `
+       <div class="card">
+           <h3>Weather</h3>
+           <p>${weather}</p>
+       </div>
+
+       <div class="card">
+           <h3>Style Ideas</h3>
+           ${styleIdeas || "<p>vacation outfits, summer aesthetic, airport fits</p>"}
+       </div>
+
+       <div class="card">
+           <h3>Pack List</h3>
+           <ul>
+               <li>Outfits</li>
+               <li>Pajamas</li>
+               <li>Shoes</li>
+               <li>Toiletries</li>
+               <li>Tech</li>
+               <li>Travel essentials</li>
+           </ul>
+       </div>
+   `;
+
+   document.getElementById("output").innerHTML = html;
+}
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack-Wise</title>
+
+<!-- FONT: ONLY ONE -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* 🎨 VIBRANT COLOR SYSTEM */
+:root{
+   --pink:#ff4fbf;
+   --emerald:#00e39a;
+   --lime:#c8ff4f;
+   --yellow:#fff04d;
+   --royal:#2A4789;
+}
+
+/* 🌈 BACKGROUND (LOUD + SUMMER ENERGY) */
+body{
+   margin:0;
+   font-family:'Playfair Display', serif;
+
+   background:
+       radial-gradient(circle at 10% 10%, #ff4fbf 0%, transparent 35%),
+       radial-gradient(circle at 90% 20%, #fff04d 0%, transparent 40%),
+       radial-gradient(circle at 30% 90%, #00e39a 0%, transparent 40%),
+       radial-gradient(circle at 80% 80%, #2A4789 0%, transparent 45%),
+       linear-gradient(135deg,#ffffff,#ffe6f3);
+
+   color:#111;
+   padding:20px;
+}
+
+.container{
+   max-width:1000px;
+   margin:auto;
+}
+
+/* HEADER */
+h1{
+   text-align:center;
+   font-size:3.5rem;
+   color:var(--pink);
+   margin-bottom:0;
+}
+
+.subtitle{
+   text-align:center;
+   color:var(--royal);
+   letter-spacing:2px;
+   margin-bottom:20px;
+}
+
+/* INPUTS */
+input,select{
+   width:100%;
+   padding:12px;
+   margin:6px 0;
+   border-radius:12px;
+   border:2px solid var(--pink);
+   font-family:'Playfair Display', serif;
+}
+
+/* BUTTON */
+button{
+   width:100%;
+   padding:15px;
+   margin-top:10px;
+   border:none;
+   border-radius:14px;
+   background:linear-gradient(135deg,var(--pink),var(--yellow));
+   color:white;
+   font-weight:bold;
+   cursor:pointer;
+}
+
+/* TAGS */
+.tag{
+   display:inline-block;
+   padding:8px 12px;
+   margin:5px;
+   border-radius:999px;
+   background:var(--lime);
+   cursor:pointer;
+   font-weight:bold;
+}
+
+.tag.active{
+   background:var(--pink);
+   color:white;
+}
+
+/* CARDS */
+.card{
+   background:rgba(255,255,255,0.95);
+   margin-top:15px;
+   padding:15px;
+   border-radius:18px;
+   border:3px solid var(--pink);
+   box-shadow:0 10px 25px rgba(255,79,191,0.25);
+}
+
+.card h3{
+   color:var(--emerald);
+   margin-top:0;
+}
+
+/* OUTPUT TEXT */
+.keyword{
+   display:inline-block;
+   background:var(--lime);
+   padding:6px 10px;
+   border-radius:999px;
+   margin:4px;
+   font-weight:bold;
+}
+
+ul{
+   padding-left:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Pack-Wise</h1>
+<div class="subtitle">your travel planner</div>
+
+<input id="tripName" placeholder="Trip name">
+<input id="destination" placeholder="Destination city (Tokyo, Paris, etc)">
+<input id="fromLocation" placeholder="From">
+
+<input type="date" id="startDate">
+<input type="date" id="endDate">
+
+<select id="style">
+<option value="coquette">Coquette 🎀</option>
+<option value="clean">Clean Girl ✨</option>
+<option value="sporty">Sporty 🧢</option>
+</select>
+
+<div>
+<div class="tag" onclick="toggle(this,'beach')">Beach</div>
+<div class="tag" onclick="toggle(this,'shopping')">Shopping</div>
+<div class="tag" onclick="toggle(this,'photos')">Photos</div>
+<div class="tag" onclick="toggle(this,'fancy')">Fancy</div>
+</div>
+
+<button onclick="generate()">Generate Pack List ✨</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+let tags = [];
+
+function toggle(el,val){
+   el.classList.toggle("active");
+
+   if(tags.includes(val)){
+       tags = tags.filter(t => t !== val);
+   } else {
+       tags.push(val);
+   }
+}
+
+/* 🌦 REAL WEATHER FUNCTION */
+async function getWeather(city){
+
+   /* 🔑🔑🔑 PUT YOUR API KEY RIGHT HERE 🔑🔑🔑 */
+   const API_KEY = "PASTE_YOUR_API_KEY_HERE";
+
+   const url =
+   `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`;
+
+   const res = await fetch(url);
+   const data = await res.json();
+
+   if(!data.main){
+       return "Weather not available for this location.";
+   }
+
+   return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+}
+
+/* MAIN FUNCTION */
+async function generate(){
+
+   const city = document.getElementById("destination").value;
+
+   const weather = await getWeather(city);
+
+   let styleIdeas = "";
+
+   if(tags.includes("beach")){
+       styleIdeas += `<span class="keyword">beach outfits</span>`;
+   }
+   if(tags.includes("photos")){
+       styleIdeas += `<span class="keyword">pinterest photo fits</span>`;
+   }
+   if(tags.includes("fancy")){
+       styleIdeas += `<span class="keyword">elegant vacation outfits</span>`;
+   }
+
+   let html = `
+       <div class="card">
+           <h3>Weather</h3>
+           <p>${weather}</p>
+       </div>
+
+       <div class="card">
+           <h3>Style Ideas</h3>
+           ${styleIdeas || "<p>vacation outfits, summer aesthetic, airport fits</p>"}
+       </div>
+
+       <div class="card">
+           <h3>Pack List</h3>
+           <ul>
+               <li>Outfits</li>
+               <li>Pajamas</li>
+               <li>Shoes</li>
+               <li>Toiletries</li>
+               <li>Tech</li>
+               <li>Travel essentials</li>
+           </ul>
+       </div>
+   `;
+
+   document.getElementById("output").innerHTML = html;
+}
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack-Wise</title>
+
+<!-- FONT: ONLY ONE -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* 🎨 VIBRANT COLOR SYSTEM */
+:root{
+   --pink:#ff4fbf;
+   --emerald:#00e39a;
+   --lime:#c8ff4f;
+   --yellow:#fff04d;
+   --royal:#2A4789;
+}
+
+/* 🌈 BACKGROUND (LOUD + SUMMER ENERGY) */
+body{
+   margin:0;
+   font-family:'Playfair Display', serif;
+
+   background:
+       radial-gradient(circle at 10% 10%, #ff4fbf 0%, transparent 35%),
+       radial-gradient(circle at 90% 20%, #fff04d 0%, transparent 40%),
+       radial-gradient(circle at 30% 90%, #00e39a 0%, transparent 40%),
+       radial-gradient(circle at 80% 80%, #2A4789 0%, transparent 45%),
+       linear-gradient(135deg,#ffffff,#ffe6f3);
+
+   color:#111;
+   padding:20px;
+}
+
+.container{
+   max-width:1000px;
+   margin:auto;
+}
+
+/* HEADER */
+h1{
+   text-align:center;
+   font-size:3.5rem;
+   color:var(--pink);
+   margin-bottom:0;
+}
+
+.subtitle{
+   text-align:center;
+   color:var(--royal);
+   letter-spacing:2px;
+   margin-bottom:20px;
+}
+
+/* INPUTS */
+input,select{
+   width:100%;
+   padding:12px;
+   margin:6px 0;
+   border-radius:12px;
+   border:2px solid var(--pink);
+   font-family:'Playfair Display', serif;
+}
+
+/* BUTTON */
+button{
+   width:100%;
+   padding:15px;
+   margin-top:10px;
+   border:none;
+   border-radius:14px;
+   background:linear-gradient(135deg,var(--pink),var(--yellow));
+   color:white;
+   font-weight:bold;
+   cursor:pointer;
+}
+
+/* TAGS */
+.tag{
+   display:inline-block;
+   padding:8px 12px;
+   margin:5px;
+   border-radius:999px;
+   background:var(--lime);
+   cursor:pointer;
+   font-weight:bold;
+}
+
+.tag.active{
+   background:var(--pink);
+   color:white;
+}
+
+/* CARDS */
+.card{
+   background:rgba(255,255,255,0.95);
+   margin-top:15px;
+   padding:15px;
+   border-radius:18px;
+   border:3px solid var(--pink);
+   box-shadow:0 10px 25px rgba(255,79,191,0.25);
+}
+
+.card h3{
+   color:var(--emerald);
+   margin-top:0;
+}
+
+/* OUTPUT TEXT */
+.keyword{
+   display:inline-block;
+   background:var(--lime);
+   padding:6px 10px;
+   border-radius:999px;
+   margin:4px;
+   font-weight:bold;
+}
+
+ul{
+   padding-left:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Pack-Wise</h1>
+<div class="subtitle">your travel planner</div>
+
+<input id="tripName" placeholder="Trip name">
+<input id="destination" placeholder="Destination city (Tokyo, Paris, etc)">
+<input id="fromLocation" placeholder="From">
+
+<input type="date" id="startDate">
+<input type="date" id="endDate">
+
+<select id="style">
+<option value="coquette">Coquette 🎀</option>
+<option value="clean">Clean Girl ✨</option>
+<option value="sporty">Sporty 🧢</option>
+</select>
+
+<div>
+<div class="tag" onclick="toggle(this,'beach')">Beach</div>
+<div class="tag" onclick="toggle(this,'shopping')">Shopping</div>
+<div class="tag" onclick="toggle(this,'photos')">Photos</div>
+<div class="tag" onclick="toggle(this,'fancy')">Fancy</div>
+</div>
+
+<button onclick="generate()">Generate Pack List ✨</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+let tags = [];
+
+function toggle(el,val){
+   el.classList.toggle("active");
+
+   if(tags.includes(val)){
+       tags = tags.filter(t => t !== val);
+   } else {
+       tags.push(val);
+   }
+}
+
+/* 🌦 REAL WEATHER FUNCTION */
+async function getWeather(city){
+
+   /* 🔑🔑🔑 PUT YOUR API KEY RIGHT HERE 🔑🔑🔑 */
+   const API_KEY = “7ac2b689303b14f7361e5b55e635d553";
+
+   const url =
+   `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`;
+
+   const res = await fetch(url);
+   const data = await res.json();
+
+   if(!data.main){
+       return "Weather not available for this location.";
+   }
+
+   return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+}
+
+/* MAIN FUNCTION */
+async function generate(){
+
+   const city = document.getElementById("destination").value;
+
+   const weather = await getWeather(city);
+
+   let styleIdeas = "";
+
+   if(tags.includes("beach")){
+       styleIdeas += `<span class="keyword">beach outfits</span>`;
+   }
+   if(tags.includes("photos")){
+       styleIdeas += `<span class="keyword">pinterest photo fits</span>`;
+   }
+   if(tags.includes("fancy")){
+       styleIdeas += `<span class="keyword">elegant vacation outfits</span>`;
+   }
+
+   let html = `
+       <div class="card">
+           <h3>Weather</h3>
+           <p>${weather}</p>
+       </div>
+
+       <div class="card">
+           <h3>Style Ideas</h3>
+           ${styleIdeas || "<p>vacation outfits, summer aesthetic, airport fits</p>"}
+       </div>
+
+       <div class="card">
+           <h3>Pack List</h3>
+           <ul>
+               <li>Outfits</li>
+               <li>Pajamas</li>
+               <li>Shoes</li>
+               <li>Toiletries</li>
+               <li>Tech</li>
+               <li>Travel essentials</li>
+           </ul>
+       </div>
+   `;
+
+   document.getElementById("output").innerHTML = html;
+}
+
+</script>
+
+</body>
 </html>

@@ -6,50 +6,49 @@
 
 <title>Pack-Wise</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<!-- App Icon -->
 <link rel="icon" type="image/png" href="https://files.catbox.moe/p7a6oa.png">
 <link rel="apple-touch-icon" href="https://files.catbox.moe/p7a6oa.png">
 
-<!-- Makes it feel like an app -->
-<meta name="theme-color" content="#ff8fab">
+<meta name="theme-color" content="#E36D9B">
 
 <style>
 :root{
-   --pink:#ffd6e7;
-   --lightpink:#ffeef5;
-   --rose:#ff8fab;
-   --cream:#fffaf5;
-   --sage:#d8e2dc;
-   --text:#5c5470;
+
+   /* YOUR ACTUAL PALETTE */
+   --royal-blue:#2A4789;
+   --emerald:#10B183;
+   --limeade:#A0CB75;
+   --canary:#E7DD6A;
+   --watermelon:#E36D9B;
+
    --white:#ffffff;
+   --bg:#ffffff;
+   --text:#1f2a44;
 }
 
-*{ box-sizing:border-box; }
+*{box-sizing:border-box;}
 
 body{
    margin:0;
    padding:30px 15px;
    font-family:'Montserrat',sans-serif;
-   background:
-       radial-gradient(circle at top left,#ffe5ec 0%,transparent 20%),
-       radial-gradient(circle at bottom right,#ffd6e7 0%,transparent 20%),
-       var(--cream);
+   background:var(--bg);
    color:var(--text);
 }
 
+/* CONTAINER */
 .container{
    max-width:1100px;
    margin:auto;
-   background:rgba(255,255,255,0.95);
-   border-radius:30px;
+   background:white;
+   border-radius:28px;
    padding:40px;
-   box-shadow:0 10px 35px rgba(0,0,0,0.08);
-   border:3px solid #fff;
+   box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
+/* HEADER */
 header{
    text-align:center;
    margin-bottom:40px;
@@ -59,24 +58,24 @@ header h1{
    font-family:'Playfair Display',serif;
    font-size:4rem;
    margin:0;
-   color:#6d6875;
+   color:var(--royal-blue);
 }
 
 .subtitle{
-   color:#a28497;
+   color:var(--watermelon);
    letter-spacing:2px;
    font-size:0.85rem;
 }
 
-.section{ margin-bottom:35px; }
-
+/* SECTION TITLES */
 .section-title{
    font-family:'Playfair Display',serif;
    font-size:1.6rem;
    margin-bottom:15px;
-   color:#6d6875;
+   color:var(--royal-blue);
 }
 
+/* INPUTS */
 .input-grid{
    display:grid;
    grid-template-columns:1fr 1fr;
@@ -90,23 +89,23 @@ label{
    letter-spacing:1px;
    text-transform:uppercase;
    font-weight:600;
+   color:var(--royal-blue);
 }
 
 input,select{
    width:100%;
    padding:14px;
-   border-radius:15px;
-   border:2px solid #f4d8e3;
-   background:#fff;
+   border-radius:14px;
+   border:2px solid #dbe7ff;
    font-size:1rem;
-   font-family:'Montserrat',sans-serif;
 }
 
 input:focus,select:focus{
    outline:none;
-   border-color:var(--rose);
+   border-color:var(--watermelon);
 }
 
+/* TAGS */
 .tag-group{
    display:flex;
    flex-wrap:wrap;
@@ -114,118 +113,75 @@ input:focus,select:focus{
 }
 
 .tag{
-   background:var(--lightpink);
-   border:2px solid transparent;
-   padding:10px 18px;
+   background:var(--limeade);
+   padding:10px 16px;
    border-radius:999px;
    cursor:pointer;
-   transition:0.2s;
-   transform:rotate(-1deg);
+   font-weight:600;
+   color:#1f2a44;
 }
 
-.tag:hover{ transform:scale(1.03); }
-
 .tag.active{
-   background:var(--rose);
+   background:var(--watermelon);
    color:white;
 }
 
+/* BUTTON */
 button{
    width:100%;
    padding:18px;
    border:none;
-   border-radius:18px;
-   background:linear-gradient(135deg,#ff8fab,#ffb3c6);
+   border-radius:16px;
+   background:var(--watermelon);
    color:white;
-   font-size:1rem;
    font-weight:700;
+   font-size:1rem;
    cursor:pointer;
-   margin-top:20px;
-   box-shadow:0 8px 20px rgba(255,143,171,0.3);
 }
 
-button:hover{ transform:translateY(-2px); }
-
-.results{
-   display:none;
-   margin-top:50px;
-}
-
-.trip-banner{
-   background:
-     repeating-linear-gradient(
-       45deg,
-       #fff,
-       #fff 12px,
-       #ffe5ec 12px,
-       #ffe5ec 24px
-     );
-   padding:25px;
-   border-radius:25px;
-   text-align:center;
-   margin-bottom:25px;
-}
-
-.trip-banner h2{
-   margin:0;
-   font-family:'Playfair Display',serif;
-}
-
-.card-grid{
-   display:grid;
-   grid-template-columns:1fr 1fr;
-   gap:20px;
-}
-
+/* CARDS */
 .card{
    background:white;
-   border-radius:22px;
+   border-radius:20px;
    padding:22px;
-   box-shadow:0 5px 18px rgba(0,0,0,0.05);
-   border:2px solid #fff0f5;
+   margin-top:20px;
+   border:2px solid #f1f5ff;
 }
 
 .card h3{
-   margin-top:0;
+   color:var(--royal-blue);
    font-family:'Playfair Display',serif;
 }
 
+/* CHIP */
 .keyword-chip{
    display:inline-block;
-   background:#ffe5ec;
-   padding:10px 15px;
+   background:var(--canary);
+   padding:8px 14px;
    border-radius:999px;
    margin:6px;
-   transform:rotate(-1deg);
-   box-shadow:2px 3px 0px #ffd6e7;
-   font-size:0.9rem;
+   font-weight:600;
 }
 
-ul{ padding-left:0; list-style:none; }
-
-li{ margin-bottom:10px; }
-
-.checkbox{ margin-right:8px; }
-
+/* WEATHER */
 .weather-box{
-   background:#fff0f5;
-   border-left:6px solid var(--rose);
+   border-left:6px solid var(--emerald);
+   background:#f3fffb;
 }
+
+/* RESULTS */
+.results{display:none;margin-top:40px;}
 
 .footer-note{
    text-align:center;
-   margin-top:35px;
-   color:#a28497;
-   font-size:0.85rem;
+   margin-top:30px;
+   color:var(--watermelon);
 }
 
+/* RESPONSIVE */
 @media(max-width:768px){
-   .input-grid,
-   .card-grid{ grid-template-columns:1fr; }
-
-   header h1{ font-size:2.8rem; }
-
-   .container{ padding:25px; }
+   .input-grid{grid-template-columns:1fr;}
+   header h1{font-size:2.8rem;}
 }
 </style>
 </head>
@@ -235,170 +191,115 @@ li{ margin-bottom:10px; }
 <div class="container">
 
 <header>
-   <div style="font-size:2rem;">୨ৎ ✈️ ୨ৎ</div>
+   <div style="font-size:2rem;">✈️</div>
    <h1>Pack-Wise</h1>
-   <p class="subtitle">YOUR AESTHETIC TRAVEL PLANNER</p>
+   <div class="subtitle">YOUR TRAVEL PLANNER</div>
 </header>
 
-<div class="section">
-   <div class="section-title">Trip Details</div>
+<div class="section-title">Trip Details</div>
 
-   <div class="input-grid">
-       <div>
-           <label>Trip Name</label>
-           <input type="text" id="tripName">
-       </div>
+<div class="input-grid">
 
-       <div>
-           <label>Trip Type</label>
-           <select id="tripType">
-               <option value="beach">Beach Vacation 🌴</option>
-               <option value="camp">Summer Camp 🏕️</option>
-               <option value="city">City Trip 🏙️</option>
-               <option value="church">Church Retreat ⛪</option>
-               <option value="themepark">Theme Park 🎢</option>
-               <option value="roadtrip">Road Trip 🚗</option>
-               <option value="family">Family Visit 🏠</option>
-           </select>
-       </div>
+<input id="tripName" placeholder="Trip name">
+<input id="fromLocation" placeholder="From">
+<input id="toLocation" placeholder="To">
 
-       <div>
-           <label>Leaving From</label>
-           <input type="text" id="fromLocation">
-       </div>
+<input type="date" id="startDate">
+<input type="date" id="endDate">
 
-       <div>
-           <label>Going To</label>
-           <input type="text" id="toLocation">
-       </div>
+<select id="travelMethod">
+<option value="flying">Flying</option>
+<option value="driving">Driving</option>
+</select>
 
-       <div>
-           <label>Departure Date</label>
-           <input type="date" id="startDate">
-       </div>
+<select id="style">
+<option value="coquette">Coquette</option>
+<option value="clean">Clean Girl</option>
+<option value="sporty">Sporty</option>
+</select>
 
-       <div>
-           <label>Return Date</label>
-           <input type="date" id="endDate">
-       </div>
+<select id="laundry">
+<option value="yes">Laundry yes</option>
+<option value="no">Laundry no</option>
+</select>
 
-       <div>
-           <label>Travel Method</label>
-           <select id="travelMethod">
-               <option value="flying">Flying ✈️</option>
-               <option value="driving">Driving 🚗</option>
-           </select>
-       </div>
-
-       <div>
-           <label>Your Style</label>
-           <select id="style">
-               <option value="coquette">Coquette 🎀</option>
-               <option value="clean">Clean Girl ✨</option>
-               <option value="sporty">Sporty 🧢</option>
-               <option value="streetwear">Streetwear 👟</option>
-               <option value="boho">Boho 🌼</option>
-           </select>
-       </div>
-
-       <div>
-           <label>Laundry Access?</label>
-           <select id="laundry">
-               <option value="yes">Yes</option>
-               <option value="no">No</option>
-           </select>
-       </div>
-   </div>
 </div>
 
-<div class="section">
-   <div class="section-title">Activities</div>
+<div class="section-title">Activities</div>
 
-   <div class="tag-group">
-       <div class="tag" onclick="toggleTag(this,'beach')">Beach Day 🌊</div>
-       <div class="tag" onclick="toggleTag(this,'shopping')">Shopping 🛍️</div>
-       <div class="tag" onclick="toggleTag(this,'photos')">Photoshoot 📸</div>
-       <div class="tag" onclick="toggleTag(this,'fancy')">Fancy Dinner 🍷</div>
-       <div class="tag" onclick="toggleTag(this,'pool')">Pool Day ☀️</div>
-   </div>
-
-   <button onclick="generatePlan()">Generate ✨</button>
+<div class="tag-group">
+<div class="tag" onclick="toggleTag(this,'beach')">Beach</div>
+<div class="tag" onclick="toggleTag(this,'pool')">Pool</div>
+<div class="tag" onclick="toggleTag(this,'fancy')">Fancy</div>
+<div class="tag" onclick="toggleTag(this,'photos')">Photos</div>
 </div>
+
+<br>
+
+<button onclick="generatePlan()">Generate</button>
 
 <div class="results" id="results">
 
-   <div class="trip-banner">
-       <h2 id="bannerTitle"></h2>
-       <p id="countdown"></p>
-   </div>
+<div class="card">
+<h3 id="bannerTitle"></h3>
+<p id="countdown"></p>
+</div>
 
-   <div class="card weather-box">
-       <h3>☀️ Forecast</h3>
-       <p id="forecast"></p>
-   </div>
+<div class="card weather-box">
+<h3>Weather</h3>
+<p id="forecast"></p>
+</div>
 
-   <div class="card">
-       <h3>🎀 Style Search</h3>
-       <div id="keywords"></div>
-   </div>
+<div class="card">
+<h3>Style Ideas</h3>
+<div id="keywords"></div>
+</div>
 
-   <div class="card-grid">
-
-       <div class="card"><h3>👚 Clothing</h3><ul id="clothing"></ul></div>
-       <div class="card"><h3>🧴 Toiletries</h3><ul id="toiletries"></ul></div>
-       <div class="card"><h3>👟 Shoes</h3><ul id="shoes"></ul></div>
-       <div class="card"><h3>📱 Tech</h3><ul id="tech"></ul></div>
-       <div class="card"><h3>✈️ Travel</h3><ul id="travel"></ul></div>
-       <div class="card"><h3>🫶 Extras</h3><ul id="extras"></ul></div>
-
-   </div>
+<div class="card">
+<h3>Clothing</h3>
+<ul id="clothing"></ul>
+</div>
 
 </div>
 
 </div>
 
 <script>
-let activeTags = [];
+let activeTags=[];
 
 function toggleTag(el,tag){
-   el.classList.toggle("active");
-   activeTags.includes(tag)
-       ? activeTags = activeTags.filter(t => t !== tag)
-       : activeTags.push(tag);
+el.classList.toggle("active");
+activeTags.includes(tag)
+? activeTags=activeTags.filter(t=>t!==tag)
+:activeTags.push(tag);
 }
 
 function addList(id,items){
-   document.getElementById(id).innerHTML =
-   items.map(i => `<li><input type="checkbox">${i}</li>`).join("");
+document.getElementById(id).innerHTML=
+items.map(i=>`<li>${i}</li>`).join("");
 }
 
 function generatePlan(){
 
-   const tripName = document.getElementById("tripName").value || "Your Trip";
-   const start = new Date(document.getElementById("startDate").value);
-   const end = new Date(document.getElementById("endDate").value);
+const tripName=document.getElementById("tripName").value||"Trip";
+const start=new Date(document.getElementById("startDate").value);
+const end=new Date(document.getElementById("endDate").value);
 
-   if(isNaN(start) || isNaN(end)) return alert("Add dates");
+if(isNaN(start)||isNaN(end))return;
 
-   const days = Math.ceil((end-start)/(1000*60*60*24))+1;
+const days=Math.ceil((end-start)/86400000)+1;
 
-   document.getElementById("bannerTitle").innerText = tripName;
+document.getElementById("bannerTitle").innerText=tripName;
 
-   const countdown = Math.ceil((start-new Date())/(1000*60*60*24));
-   document.getElementById("countdown").innerText =
-       countdown > 0 ? `${countdown} days left ✈️` : "Trip time!";
+document.getElementById("countdown").innerText=
+Math.ceil((start-new Date())/86400000)+" days left";
 
-   document.getElementById("forecast").innerText =
-       "Warm weather vibes. Pack light, breathable outfits.";
+document.getElementById("forecast").innerText=
+"Warm, bright, summer vibes.";
 
-   addList("clothing",[`${days} outfits`, "Pajamas"]);
-   addList("toiletries",["Basics kit"]);
-   addList("shoes",["Sneakers","Sandals"]);
-   addList("tech",["Charger","Headphones"]);
-   addList("travel",["ID","Wallet","Phone"]);
-   addList("extras",["Sunglasses","Water bottle"]);
+addList("clothing",[`${days} outfits`,`Pajamas`]);
 
-   document.getElementById("results").style.display="block";
+document.getElementById("results").style.display="block";
 }
 </script>
 

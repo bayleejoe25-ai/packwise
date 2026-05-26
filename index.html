@@ -9,23 +9,17 @@
 
 <style>
 :root{
-  --pink:#ff4fbf;
-  --emerald:#00e39a;
+  --pink:#ff3fbf;
   --lime:#c8ff4f;
-  --yellow:#fff04d;
-  --royal:#2A4789;
+  --emerald:#00c98a;
+  --yellow:#ffe94d;
+  --blue:#2A4789;
 }
 
 body{
   margin:0;
   font-family:'Playfair Display', serif;
-  background:
-      radial-gradient(circle at 10% 10%, #ff4fbf 0%, transparent 35%),
-      radial-gradient(circle at 90% 20%, #fff04d 0%, transparent 40%),
-      radial-gradient(circle at 30% 90%, #00e39a 0%, transparent 40%),
-      radial-gradient(circle at 80% 80%, #2A4789 0%, transparent 45%),
-      linear-gradient(135deg,#ffffff,#ffe6f3);
-  color:#111;
+  background: linear-gradient(135deg,#ffffff,#ffe6f3,#fff3c9,#e6fff7);
   padding:20px;
 }
 
@@ -36,22 +30,19 @@ body{
 
 h1{
   text-align:center;
-  font-size:3.5rem;
   color:var(--pink);
-  margin-bottom:0;
+  font-size:2.5rem;
 }
 
-.subtitle{
-  text-align:center;
-  color:var(--royal);
-  letter-spacing:2px;
-  margin-bottom:20px;
+label{
+  font-weight:bold;
+  color:var(--blue);
 }
 
 input,select{
   width:100%;
   padding:12px;
-  margin:6px 0;
+  margin:6px 0 12px;
   border-radius:12px;
   border:2px solid var(--pink);
   font-family:'Playfair Display', serif;
@@ -59,11 +50,10 @@ input,select{
 
 button{
   width:100%;
-  padding:15px;
-  margin-top:10px;
+  padding:14px;
   border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--pink),var(--yellow));
+  border-radius:12px;
+  background:var(--pink);
   color:white;
   font-weight:bold;
   cursor:pointer;
@@ -73,10 +63,10 @@ button{
   display:inline-block;
   padding:8px 12px;
   margin:5px;
-  border-radius:999px;
   background:var(--lime);
+  border-radius:999px;
   cursor:pointer;
-  font-weight:bold;
+  user-select:none;
 }
 
 .tag.active{
@@ -85,27 +75,16 @@ button{
 }
 
 .card{
-  background:rgba(255,255,255,0.95);
   margin-top:15px;
   padding:15px;
-  border-radius:18px;
-  border:3px solid var(--pink);
-  box-shadow:0 10px 25px rgba(255,79,191,0.25);
+  border-radius:14px;
+  border:2px solid var(--pink);
+  background:white;
 }
 
 .card h3{
   color:var(--emerald);
 }
-
-.keyword{
-  display:inline-block;
-  background:var(--lime);
-  padding:6px 10px;
-  border-radius:999px;
-  margin:4px;
-  font-weight:bold;
-}
-
 </style>
 </head>
 
@@ -114,16 +93,15 @@ button{
 <div class="container">
 
 <h1>Pack-Wise</h1>
-<div class="subtitle">your travel planner</div>
 
-<input id="tripName" placeholder="Trip name">
-<input id="destination" placeholder="Destination city (Tokyo, Paris, etc)">
-<input id="fromLocation" placeholder="From">
+<!-- INPUTS -->
+<input id="destination" placeholder="Destination city">
+<input id="from" placeholder="From where">
 
-<input type="date" id="startDate">
-<input type="date" id="endDate">
+<input type="date" id="start">
+<input type="date" id="end">
 
-<!-- ADDED: TRANSPORTATION -->
+<!-- TRANSPORT -->
 <select id="transport">
 <option value="plane">Plane ✈️</option>
 <option value="car">Car 🚗</option>
@@ -131,103 +109,132 @@ button{
 <option value="bus">Bus 🚌</option>
 </select>
 
-<!-- ADDED: LAUNDRY -->
-<select id="laundry">
-<option value="yes">Laundry available</option>
-<option value="no">No laundry</option>
-</select>
-
+<!-- STYLE -->
 <select id="style">
 <option value="coquette">Coquette 🎀</option>
 <option value="clean">Clean Girl ✨</option>
-<option value="sporty">Sporty 🧢</option>
 <option value="streetwear">Streetwear 👟</option>
 <option value="boho">Boho 🌼</option>
 <option value="aesthetic">Aesthetic 🌈</option>
 <option value="minimal">Minimal 🤍</option>
 </select>
 
-<div>
+<!-- LAUNDRY -->
+<select id="laundry">
+<option value="yes">Laundry available</option>
+<option value="no">No laundry</option>
+</select>
+
+<button onclick="generate()">Generate Pack Plan</button>
+
+<!-- ACTIVITIES -->
+<div style="margin-top:20px">
+
 <div class="tag" onclick="toggle(this,'beach')">Beach</div>
+<div class="tag" onclick="toggle(this,'lake')">Lake</div>
 <div class="tag" onclick="toggle(this,'shopping')">Shopping</div>
+<div class="tag" onclick="toggle(this,'dining')">Dining Out</div>
+<div class="tag" onclick="toggle(this,'outdoor')">Outdoor Activities</div>
+<div class="tag" onclick="toggle(this,'water')">Water Activities</div>
+<div class="tag" onclick="toggle(this,'entertainment')">Entertainment</div>
+<div class="tag" onclick="toggle(this,'sightseeing')">Sightseeing</div>
+<div class="tag" onclick="toggle(this,'exploring')">Exploring</div>
+<div class="tag" onclick="toggle(this,'relaxing')">Relaxing</div>
+<div class="tag" onclick="toggle(this,'sports')">Sports</div>
+<div class="tag" onclick="toggle(this,'nightlife')">Nightlife</div>
+<div class="tag" onclick="toggle(this,'nature')">Nature Time</div>
+<div class="tag" onclick="toggle(this,'travel')">Travel Experiences</div>
+<div class="tag" onclick="toggle(this,'social')">Social Activities</div>
+<div class="tag" onclick="toggle(this,'creative')">Creative Activities</div>
+<div class="tag" onclick="toggle(this,'events')">Events</div>
+<div class="tag" onclick="toggle(this,'local')">Local Attractions</div>
+<div class="tag" onclick="toggle(this,'casual')">Casual Hangouts</div>
+<div class="tag" onclick="toggle(this,'wandering')">Random Wandering</div>
+<div class="tag" onclick="toggle(this,'adventure')">Adventure Activities</div>
 <div class="tag" onclick="toggle(this,'photos')">Photos</div>
 <div class="tag" onclick="toggle(this,'fancy')">Fancy</div>
-<div class="tag" onclick="toggle(this,'adventure')">Adventure</div>
-<div class="tag" onclick="toggle(this,'relax')">Relax</div>
-</div>
 
-<button onclick="generate()">Generate Pack List ✨</button>
+</div>
 
 <div id="output"></div>
 
 </div>
 
 <script>
+
 let tags = [];
 
 function toggle(el,val){
-   el.classList.toggle("active");
+  el.classList.toggle("active");
 
-   if(tags.includes(val)){
-       tags = tags.filter(t => t !== val);
-   } else {
-       tags.push(val);
-   }
+  if(tags.includes(val)){
+    tags = tags.filter(t => t !== val);
+  } else {
+    tags.push(val);
+  }
 }
 
+/* WEATHER API */
 async function getWeather(city){
 
-   const API_KEY = "7ac2b689303b14f7361e5b55e635d553";
+  const API_KEY = "7ac2b689303b14f7361e5b55e635d553";
 
-   try {
-       const url =
-       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`;
+  try{
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`
+    );
 
-       const res = await fetch(url);
-       const data = await res.json();
+    const data = await res.json();
 
-       if(!data.main){
-           return "Weather not available.";
-       }
+    if(!data.main) return "Weather not available";
 
-       return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
-
-   } catch (err) {
-       return "Weather failed to load.";
-   }
+    return `${city}: ${Math.round(data.main.temp)}°F, ${data.weather[0].description}`;
+  } catch {
+    return "Weather failed to load";
+  }
 }
 
+/* GENERATE EVERYTHING */
 async function generate(){
 
-   const city = document.getElementById("destination").value;
-   const transport = document.getElementById("transport").value;
-   const laundry = document.getElementById("laundry").value;
+  const city = document.getElementById("destination").value;
+  const transport = document.getElementById("transport").value;
+  const style = document.getElementById("style").value;
+  const laundry = document.getElementById("laundry").value;
 
-   const weather = await getWeather(city);
+  const weather = await getWeather(city);
 
-   document.getElementById("output").innerHTML = `
-       <div class="card">
-           <h3>Weather</h3>
-           <p>${weather}</p>
-       </div>
+  document.getElementById("output").innerHTML = `
+    <div class="card">
+      <h3>Weather</h3>
+      <p>${weather}</p>
+    </div>
 
-       <div class="card">
-           <h3>Transportation</h3>
-           <p>${transport}</p>
-       </div>
+    <div class="card">
+      <h3>Transport</h3>
+      <p>${transport}</p>
+    </div>
 
-       <div class="card">
-           <h3>Laundry Situation</h3>
-           <p>${laundry === "yes" ? "Laundry available" : "No laundry available"}</p>
-       </div>
+    <div class="card">
+      <h3>Style</h3>
+      <p>${style}</p>
+    </div>
 
-       <div class="card">
-           <h3>Pack List</h3>
-           <p>Clothes, toiletries, shoes, tech, travel essentials, extras</p>
-       </div>
-   `;
-}
-  document.getElementById("output").innerHTML = html;
+    <div class="card">
+      <h3>Laundry</h3>
+      <p>${laundry === "yes" ? "Laundry available" : "No laundry available"}</p>
+    </div>
+
+    <div class="card">
+      <h3>Activities Selected</h3>
+      <p>${tags.length ? tags.join(", ") : "None selected"}</p>
+    </div>
+
+    <div class="card">
+      <h3>Packing List</h3>
+      <p>Outfits, toiletries, shoes, tech, travel essentials, accessories</p>
+    </div>
+  `;
 }
 
 </script>

@@ -153,6 +153,58 @@ function toggle(el,val){
   }
 }
 
+<div class="card">
+  <h3>📌 Style Keywords (Pinterest Inspo)</h3>
+
+  <p style="font-size:14px; opacity:0.8;">
+    Search these on Pinterest to find outfit ideas for your trip aesthetic.
+  </p>
+
+  <ul>
+    ${style === "coquette" ? `
+      <li>coquette summer outfits</li>
+      <li>pink aesthetic vacation outfits</li>
+      <li>soft girl travel outfits</li>
+      <li>girly airport outfit ideas</li>
+    ` : ""}
+
+    ${style === "clean" ? `
+      <li>clean girl aesthetic outfits</li>
+      <li>minimal summer vacation outfits</li>
+      <li>neutral airport outfits</li>
+      <li>simple chic travel outfits</li>
+    ` : ""}
+
+    ${style === "streetwear" ? `
+      <li>streetwear summer outfits</li>
+      <li>baggy airport outfit ideas</li>
+      <li>urban travel outfits aesthetic</li>
+      <li>sneaker outfit inspo vacation</li>
+    ` : ""}
+
+    ${style === "boho" ? `
+      <li>boho summer outfits travel</li>
+      <li>flowy vacation dresses aesthetic</li>
+      <li>festival beach outfits boho style</li>
+      <li>earthy tone vacation outfits</li>
+    ` : ""}
+
+    ${style === "aesthetic" ? `
+      <li>aesthetic vacation outfits pinterest</li>
+      <li>cute travel outfit ideas summer</li>
+      <li>trendy airport outfits aesthetic</li>
+      <li>soft aesthetic outfits inspo</li>
+    ` : ""}
+
+    ${style === "minimal" ? `
+      <li>minimal travel outfits aesthetic</li>
+      <li>capsule wardrobe vacation outfits</li>
+      <li>clean neutral outfit inspo</li>
+      <li>simple chic summer outfits</li>
+    ` : ""}
+  </ul>
+</div>
+    
 /* WEATHER API */
 async function getWeather(city){
 
